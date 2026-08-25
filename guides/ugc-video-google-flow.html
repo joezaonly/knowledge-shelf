@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ทำวิดีโอ UGC ขายของด้วย Google Flow + AI ควบคุมอัตโนมัติ — AnonyMous Shelf</title>
+<meta name="description" content="สูตรสร้างคลิป UGC สไตล์ TikTok ด้วย Google Flow ควบคุมโดย AI ผ่าน Chrome CDP พร้อมบทเรียนจริง 10 ข้อและระบบ QA 4 ด่าน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#7c2d12,#b45309 55%,#f0b429);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🎬</div>
+  <h1>ทำวิดีโอ UGC ขายของด้วย Google Flow<br>+ AI ควบคุมอัตโนมัติทั้งกระบวนการ</h1>
+  <p>สูตรที่ใช้ขายของจริงบน TikTok Shop: AI สร้างคลิป 9:16 เสียงไทยธรรมชาติ ตรวจคุณภาพครบ 4 ด่าน พร้อมบทเรียนราคาแพงที่เคยพลาดมาแล้ว</p>
+  <span class="badge">🤖 อัปเดต 25 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~12 นาที</span>
+  <span class="badge">🎯 ระดับ: ทำตามได้เลย</span>
+</div>
+
+<h2>1. ภาพรวม — ทำอะไรอยู่ 🧭</h2>
+<p>ใช้ <strong>Google Flow</strong> (labs.google/fx) สร้างวิดีโอ UGC (User Generated Content) สไตล์คนขายของบน TikTok แล้วปล่อยให้ <strong>AI Agent ควบคุมเบราว์เซอร์อัตโนมัติ</strong>ผ่าน Chrome CDP — ตั้งแต่กดอัปโหลดรูปสินค้า ใส่พรอมต์ รอสร้าง ดาวน์โหลด จนตรวจคุณภาพ ก่อนส่งให้คนกดโพสต์</p>
+<table>
+<tr><th>รายการ</th><th>ค่าที่ใช้งานจริง</th></tr>
+<tr><td>โมเดลวิดีโอ</td><td><strong>Omni Flash</strong> — เสียงไทย + ลิปซิงค์ดีสุดในตาราง</td></tr>
+<tr><td>โมเดลภาพ (สำหรับรูปอ้างอิง)</td><td><strong>Nano Banana Pro</strong></td></tr>
+<tr><td>ขนาด / ความยาว</td><td>9:16 (720×1280) / 8 วินาที</td></tr>
+<tr><td>เสียง</td><td>ไทยธรรมชาติ จังหวะคนขายของจริง พูดเร็วปกติ</td></tr>
+<tr><td>บัญชี</td><td>Google AI Pro / Ultra (มีเครดิตวิดีโอ)</td></tr>
+</table>
+
+<h3>หน้าที่แต่ละฝ่าย 👤🤖</h3>
+<table>
+<tr><th>ขั้นตอน</th><th>👤 คน</th><th>🤖 AI</th></tr>
+<tr><td>ส่งรูปสินค้า + บอกจุดขาย</td><td>✅</td><td>เรียบเรียงเป็นพรอมต์</td></tr>
+<tr><td>อัปโหลดรูป + แนบ + สร้างวิดีโอ</td><td>—</td><td>✅ ทำทุกอย่างผ่าน CDP</td></tr>
+<tr><td>ตรวจคุณภาพ (เสียง/ภาพ/ตัวหนังสือ)</td><td>—</td><td>✅ ASR + วิเคราะห์เฟรม</td></tr>
+<tr><td>ฟังผล สั่งแก้ / กดโพสต์ขาย</td><td>✅</td><td>แก้และสร้างใหม่ตามสั่ง</td></tr>
+</table>
+
+<h2>2. สิ่งที่ต้องเตรียม 🔧</h2>
+<p><span class="role h">👤 คนทำ</span>ครั้งเดียวตอนตั้งระบบ:</p>
+<ul>
+  <li>บัญชี Google ที่มีสิทธิ์ใช้ Flow (AI Pro/Ultra) ล็อกอินใน Chrome ให้เรียบร้อย</li>
+  <li>เปิด Chrome พร้อม <code>--remote-debugging-port=9222</code> (ให้ AI เชื่อมต่อควบคุมได้)</li>
+</ul>
+<p><span class="role a">🤖 AI ทำ</span>ตรวจสอบความพร้อมก่อนเริ่มงานทุกครั้ง:</p>
+<pre><code># ตรวจว่า Chrome เปิด CDP อยู่
+curl -s http://127.0.0.1:9222/json | head -5</code></pre>
+<div class="note">💡 สคริปต์ CDP ทั้งหมดต้องใช้ Python ที่ลง <code>websockets</code> ไว้แล้วเท่านั้น — ถ้าใช้ Python ตัวอื่นจะเจอ <code>ModuleNotFoundError</code> (บทเรียนจริงข้อ 1)</div>
+
+<h2>3. ขั้นตอนสร้างวิดีโอ (Workflow จริง) 🎥</h2>
+
+<h3>ขั้น 1: เตรียมรูปสินค้า <span class="role h">👤</span>→<span class="role a">🤖</span></h3>
+<p>คนส่งรูปสินค้าในแชท → AI คัดลอกไปไว้ในโฟลเดอร์ที่ Chrome อ่านได้ (ตรวจสอบสิทธิ์ไฟล์ด้วย <code>chmod 644</code> เสมอ)</p>
+
+<h3>ขั้น 2: ตรวจว่าอยู่หน้าพร้อมสร้าง</h3>
+<p>หน้าจอที่พร้อมต้องมี: ช่องพิมพ์เขียนว่า <strong>"What do you want to create?"</strong> + ชิป <code>Video · 720p · 8s</code></p>
+<div class="note warn">🚨 ถ้าเห็น "What do you want to <strong>change</strong>?" = หลุดเข้า image editor ผิดหน้า ให้ย้อนกลับหน้าโปรเจกต์ก่อนเสมอ</div>
+
+<h3>ขั้น 3: อัปโหลดรูปใหม่เข้า Flow ⭐ (จุดที่พลาดบ่อยสุด)</h3>
+<p><strong>กฎเหล็ก: อัปโหลดรูปใหม่ทุกครั้ง และเลือกเฉพาะรูปที่เพิ่งอัปโหลดเท่านั้น</strong></p>
+<ol>
+  <li>กดปุ่ม <code>+</code> ในแถบคอมโพสเซอร์ → เปิดหน้าต่างเลือกสื่อ (asset picker)</li>
+  <li>กดปุ่ม <strong>Upload media</strong></li>
+  <li>Flow จะสร้าง <code>input[type=file]</code> ตัวใหม่ → ส่งไฟล์เข้า <strong>ตัวสุดท้าย</strong> (ตัวที่เพิ่งเกิด)</li>
+  <li>รอรูปใหม่ปรากฏเป็น thumbnail → <strong>คลิกเฉพาะรูปที่เพิ่งอัปโหลด</strong></li>
+</ol>
+<div class="note warn">🚨 <strong>บทเรียนจริงข้อ 2:</strong> ถ้าเผลอใช้รูปเก่าค้างใน library แทนรูปใหม่ วิดีโอจะสร้างโดยไม่ยึดรูปสินค้าของเรา → สินค้าเพี้ยนทั้งคลิป เคยเจอมาแล้วและต้องสร้างใหม่เสียเครดิตฟรี</div>
+<div class="note warn">🚨 <strong>บทเรียนจริงข้อ 3:</strong> ใน asset picker ให้คลิก "แถวรายการด้านขวา" — คลิกรูปย่อฝั่งซ้ายจะเปิดหน้าแก้ไขแทนการแนบ</div>
+
+<h3>ขั้น 4: ตรวจโมเดล (Omni Flash)</h3>
+<p>คลิกชิป <code>Video · 720p · 8s</code> → เมนูเลือกโมเดลเด้งขึ้น → ตรวจว่าเลือก <strong>Omni Flash</strong> อยู่ (เช็กเครดิตจากป้ายแพ็กเกจมุมขวาบน)</p>
+
+<h3>ขั้น 5: ใส่พรอมต์แล้วส่ง</h3>
+<p>โฟกัสช่องพิมพ์ → ใส่พรอมต์ด้วย <strong>input events จริง</strong> (keydown/keypress/keyup ครบ 3 จังหวะ ไม่งั้น React ไม่รับค่า) → กด Enter → รอ ~3–4 นาที → ดาวน์โหลดจากการ์ดในกริด "All Media"</p>
+
+<h2>4. สูตรเขียนพรอมต์ที่ได้ผล ✅</h2>
+<pre><code>1. ฟอร์แมต     → "9:16 vertical, 8 seconds, UGC TikTok seller video,
+                   ONE continuous full-body shot"
+2. คน+ฉาก      → ระบุให้ตรงกับรูปอ้างอิง "from the attached reference photo"
+3. บทพูดไทย    → ใส่คำพูดจริง + สั่ง "EXACTLY ONCE, NO repetition"
+4. จังหวะท่าทาง → ผูกแต่ละวลีกับท่า ("ขณะพูด X ให้ทำท่า Y")
+5. ช่วงเวลา    → พูดวิที่ 1–6 แล้วเงียบยิ้มปิดท้าย
+6. ล็อกสินค้า   → "CRITICAL: exact product from reference photo —
+                   ระบุสี ทรง ดีเทล — do not morph or warp"
+7. ห้ามตัวหนังสือ → "ABSOLUTELY NO text, NO subtitles overlaid"</code></pre>
+<h3>กฎการพูด (สำคัญมาก)</h3>
+<ul>
+  <li>✅ สั่ง <code>fluent natural conversational Thai, normal speaking speed</code> → เสียงเป็นธรรมชาติ</li>
+  <li>❌ ห้ามสั่ง "slowly, syllable by syllable" → เสียงจะกลายเป็นหุ่นยนต์</li>
+  <li>✅ ถ้ามีคำที่โมเดลชอบพูดซ้ำ ให้สั่งชัด: <code>the phrase 'X' must be spoken EXACTLY ONE TIME</code></li>
+  <li>❌ บทพูดอย่ายาวเกิน 8 วินาที → พูดไม่จบหรือพูดซ้ำ</li>
+</ul>
+
+<h2>5. ระบบตรวจคุณภาพ 4 ด่าน 🔍</h2>
+<p><span class="role a">🤖 AI ทำ</span>ครบทุกด่าน <strong>ทุกคลิป</strong> ก่อนส่งให้คน:</p>
+<table>
+<tr><th>ด่าน</th><th>เครื่องมือ</th><th>ผ่านเมื่อ</th></tr>
+<tr><td>1. สเปกไฟล์</td><td>ffprobe</td><td>h264+aac, 720×1280, 8.0 วิ</td></tr>
+<tr><td>2. เสียงพูด</td><td>Whisper (ASR)</td><td>คำพูดตรงบท + ไม่มีคำซ้ำ</td></tr>
+<tr><td>3. ภาพ/เฟรม</td><td>ffmpeg grid + vision model</td><td>สินค้าตรงรูปอ้างอิง ไม่ morph คนสม่ำเสมอ</td></tr>
+<tr><td>4. ตัวหนังสือ</td><td>ตรวจในเฟรมเดียวกัน</td><td>ไม่มีซับ/ตัวอักษรเพี้ยนทับวิดีโอ</td></tr>
+</table>
+<pre><code># ด่าน 1: สเปก
+ffprobe -v error -show_entries format=duration \
+  -show_entries stream=codec_name,width,height -of csv=p=0 video.mp4
+
+# ด่าน 2: ดึงเสียงไปทำ ASR
+ffmpeg -y -i video.mp4 -ar 16000 -ac 1 audio.wav
+
+# ด่าน 3: ทำเฟรม grid 2x2 ให้ vision model ตรวจ
+ffmpeg -y -i video.mp4 -vf "select='eq(n\,25)+eq(n\,85)+eq(n\,140)+eq(n\,190)',\
+  scale=360:-1,tile=2x2" -frames:v 1 grid.jpg</code></pre>
+<div class="note">💡 ASR โมเดลเล็กฟังไทยเพี้ยนบ้าง (เช่น "ไม่อึดอัด" → "ไม่ออกอับ") ให้อ่านจับความ + นับจำนวนครั้งที่คำสำคัญปรากฏแทนการเทียบตัวอักษรตรง ๆ</div>
+
+<h2>6. ตารางบทเรียนของจริง 10 ข้อ 🛠️</h2>
+<table>
+<tr><th>ปัญหา</th><th>สาเหตุ</th><th>วิธีแก้</th></tr>
+<tr><td>สินค้าในวิดีโอไม่ตรงรูป</td><td>ใช้รูปเก่าค้างใน picker</td><td>อัปโหลดรูปใหม่เสมอ + คลิกเฉพาะ thumbnail ของรูปใหม่</td></tr>
+<tr><td>พูดซ้ำคำเดิม 2 ครั้ง</td><td>โมเดลชอบย้ำคำ</td><td>สั่ง "spoken EXACTLY ONE TIME" แล้วตรวจด้วย ASR</td></tr>
+<tr><td>อัปโหลดเงียบ ไม่เข้า</td><td>ตั้งไฟล์กับ input ตัวเก่า</td><td>ใช้ <code>input[type=file]</code> ตัวสุดท้ายที่เพิ่งเกิด</td></tr>
+<tr><td>คลิกแนบรูปแล้วเปิดหน้าแก้ไข</td><td>คลิกถูกฝั่งของ picker</td><td>คลิกแถวรายการด้านขวา ไม่ใช่รูปย่อฝั่งซ้าย</td></tr>
+<tr><td>ปุ่มตั้งค่าโมเดลหาไม่เจอ</td><td>Flow เปลี่ยน UI</td><td>ใช้ชิป <code>Video · 720p · 8s</code> แทนปุ่ม Settings เก่า</td></tr>
+<tr><td>เว็บไม่รับข้อความที่พิมพ์</td><td>พิมพ์ผ่าน DOM ตรง ๆ</td><td>ใช้ input events จริง (keydown/keypress/keyup)</td></tr>
+<tr><td>เสียงหุ่นยนต์ ฟังช้า</td><td>สั่ง "slowly, clearly"</td><td>สั่ง "normal speaking speed, like a real seller"</td></tr>
+<tr><td>สินค้า morph/ยืด/เปลี่ยนรูป</td><td>มีท่าดึง/เปิดสินค้าในคลิป</td><td>สั่ง "ONE static shot, hold product STEADILY"</td></tr>
+<tr><td>ซับไตเติ้ลไทยเพี้ยนติดจอ</td><td>โมเดลเขียนไทยไม่เก่ง</td><td>สั่งห้ามตัวหนังสือ ถ้าอยากได้ซับค่อยใส่เองภายหลัง</td></tr>
+<tr><td>คลิปดูช้า เพลินเกินไป ไม่เหมือน TikTok</td><td>AI สร้างจังหวะช้าละมุน</td><td>ตัดช็อตสั้น ~1.2 วิ + เร่ง B-roll ~1.5x ( ffmpeg )</td></tr>
+</table>
+
+<h2>7. เช็กลิสต์ก่อนกดสร้าง + ก่อนส่งมอบ 📋</h2>
+<div class="note ok">✅ <strong>ก่อนสร้าง:</strong> อยู่หน้าพร้อมสร้าง · โมเดล = Omni Flash · แนบรูปใหม่แล้ว · พรอมต์มีบทพูด + "EXACTLY ONCE" + ล็อกสินค้า + ห้ามตัวหนังสือ · เครดิตพอ</div>
+<div class="note ok">✅ <strong>ก่อนส่งมอบ:</strong> ffprobe ผ่าน · ASR ตรงบทไม่ซ้ำ · เฟรมตรงรูปไม่ morph · ไม่มีตัวหนังสือเพี้ยน</div>
+
+<h2>8. ส่วนไหนคนทำ / ส่วนไหน AI ทำ 🧩</h2>
+<table>
+<tr><th>ขั้น</th><th>งาน</th><th>ใครทำ</th><th>เวลาโดยประมาณ</th></tr>
+<tr><td>1</td><td>ถ่ายรูปสินค้า / ส่งรูป + จุดขาย</td><td>👤 คน</td><td>2 นาที</td></tr>
+<tr><td>2</td><td>อัปโหลด แนบ สร้าง รอ ดาวน์โหลด</td><td>🤖 AI</td><td>~5 นาที (อัตโนมัติ)</td></tr>
+<tr><td>3</td><td>ตรวจคุณภาพ 4 ด่าน</td><td>🤖 AI</td><td>~1 นาที</td></tr>
+<tr><td>4</td><td>ดูคลิป ฟังเสียง ตัดสินใจ</td><td>👤 คน</td><td>1 นาที</td></tr>
+<tr><td>5</td><td>แก้ตามสั่ง (ถ้ามี) → สร้างใหม่</td><td>🤖 AI</td><td>~5 นาที</td></tr>
+<tr><td>6</td><td>โพสต์ + ปักตะกร้าขาย</td><td>👤 คน</td><td>2 นาที</td></tr>
+</table>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · เขียนจากงานขายของจริงบน TikTok Shop · อัปเดต 25 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>

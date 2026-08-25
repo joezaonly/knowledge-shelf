@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grok Bot ดีไหม? ใช้บน Ubuntu 24.04 ได้หรือเปล่า — AnonyMous Shelf</title>
+<meta name="description" content="สรุป Grok Bot ของ xAI: คืออะไร ราคาเท่าไหร่ ใช้บน Ubuntu 24.04 ได้ไหม และเทียบกับ AI Agent แบบ self-host">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#4c1d95,#7c3aed 60%,#a78bfa);border-radius:20px;padding:40px 34px}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.pros{color:var(--green)}
+.cons{color:var(--red)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🤖</div>
+  <h1>Grok Bot ดีไหม?<br>ใช้บน Ubuntu 24.04 ได้หรือเปล่า</h1>
+  <p>สรุปจากการค้นเอกสารทางการ + ข่าวล่าสุด (หน้าทางการบางหน้าถูกบล็อกจากฝั่งเซิร์ฟเวอร์ จึงอ้างอิงแหล่งรองด้วย) — พร้อมมุมมองเทียบกับ AI Agent แบบ self-host ที่เราใช้อยู่จริง</p>
+  <span class="badge">🤖 อัปเดต 25 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~7 นาที</span>
+</div>
+
+<h2>1. Grok Bot คืออะไร 🧩</h2>
+<p><strong>Grok Bot</strong> คือโปรดักส์ใหม่ของ xAI (บริษัทของ Elon Musk) เปิดตัวช่วง 11 ส.ค. 2026 — ไม่ใช่แชทบอทถาม-ตอบธรรมดา แต่เป็น <strong>"ทีม AI agent ทำงานให้ตลอด 24 ชั่วโมง"</strong> โดยแต่ละตัวมี:</p>
+<ul>
+  <li>☁️ <strong>คอมพิวเตอร์คลาวด์ของตัวเอง</strong> — มี browser, file system, terminal จริง ๆ</li>
+  <li>🔑 <strong>ล็อกอินของตัวเอง</strong> — เข้าเว็บ/เครื่องมือแทนเราได้ (เราล็อกอินให้ครั้งเดียว)</li>
+  <li>⏰ <strong>ทำงานต่อแม้ปิดเครื่อง</strong> — เพราะรันบนคลาวด์ของเขา ไม่ใช่เครื่องเรา</li>
+  <li>🎓 <strong>สอนงานด้วยบันทึกหน้าจอ</strong> — ทำให้ดูรอบเดียว แล้วให้ทำซ้ำเองได้ + ตั้งเวลาทำประจำ</li>
+  <li>📱 <strong>แอปมือถือ</strong> คุมทุกอย่างได้เต็ม และมีปลั๊กอินสำเร็จรูป (Google Drive, Notion, Slack ฯลฯ)</li>
+</ul>
+
+<h2>2. ดีไหม? 👍👎</h2>
+<table>
+<tr><th style="width:50%">ข้อดี 👍</th><th>ข้อจำกัด 👎</th></tr>
+<tr>
+<td><span class="pros">• งานคลาวด์รันได้จริง:</span> เฝ้าเว็บ สรุปอีเมล research ดึงรายงาน<br>
+<span class="pros">• สอนงานแบบ "ทำให้ดู"</span> ได้คล้ายสอนคนจริง<br>
+<span class="pros">• ไม่ต้องเปิดคอมทิ้งไว้</span> — งานวิ่งบนคลาวด์เขา<br>
+<span class="pros">• เริ่มง่ายมาก</span> ไม่ต้องดูแลระบบเอง</td>
+<td><span class="cons">• ค่าใช้จ่ายเป็นรายเดือน</span> ต้องมีแพ็กเกจที่รองรับ (เดิมเข้าถึงยาก/แพง ล่าสุดขยายให้แพ็กเกจที่ถูกลงเข้าถึงได้ — เช็กราคาปัจจุบันจากเว็บทางการอีกครั้ง)<br>
+<span class="cons">• ยังเป็นช่วงแรก</span> ของผลิตภัณฑ์ (เปิดตัว ส.ค. 2026) ฟีเจอร์/ราคาอาจเปลี่ยนเร็ว<br>
+<span class="cons">• ควบคุมลึกไม่ได้เท่าของที่เราติดตั้งเอง</span> — ระบบไฟล์/สภาพแวดล้อมเป็นของเขา ไม่ปรับแต่งได้อิสระ</td>
+</tr>
+</table>
+
+<h2>3. ใช้บน Ubuntu Desktop 24.04 ได้ไหม? 🐧</h2>
+<div class="note ok">✅ <strong>ใช้ได้ครับ</strong> — Grok Bot รองรับ <strong>macOS, iOS, Windows และ Linux</strong> ดังนั้นบน Ubuntu Desktop 24.04 ก็ใช้งานได้ (โหลดตัวติดตั้งสำหรับ Linux จากหน้าทางการหลังล็อกอินแพ็กเกจที่รองรับ)</div>
+<p>หมายเหตุ: ณ วันที่เขียนรีวิว หน้า <code>x.ai/bot</code> ถูก Cloudflare บล็อกการเข้าถึงจากฝั่งเซิร์ฟเวอร์ จึงยืนยันรายละเอียดผ่านเอกสารช่วยเหลือทางการ (docs.x.ai) และบทความวิเคราะห์ภายนอกแทน — ขั้นตอนการติดตั้งจริงบน Ubuntu ควรทำตามหน้าดาวน์โหลดทางการอีกครั้ง</p>
+
+<h2>4. เทียบกับ AI Agent แบบ self-host (อย่างที่เราใช้อยู่) ⚖️</h2>
+<table>
+<tr><th>มุมมอง</th><th>Grok Bot</th><th>Self-host AI Agent</th></tr>
+<tr><td>ค่าใช้จ่าย</td><td>รายเดือน ตามแพ็กเกจ</td><td>ฟรี/ต้นทุนเครื่องตัวเอง (อาจมีค่าโมเดล API)</td></tr>
+<tr><td>การติดตั้ง</td><td>พร้อมใช้ทันที</td><td>ต้องตั้งระบบเอง (ครั้งเดียว)</td></tr>
+<tr><td>ความเป็นส่วนตัว</td><td>งานวิ่งบนคลาวด์ของเขา</td><td>ทุกอย่างอยู่บนเครื่องเรา</td></tr>
+<tr><td>ความยืดหยุ่น</td><td>ตามที่เขาออกแบบ</td><td>ปรับแต่ง/เขียนสคริปต์ได้ไม่จำกัด</td></tr>
+<tr><td>ทำงาน 24 ชม.</td><td>✅ โดยธรรมชาติ</td><td>✅ ถ้าเปิดเครื่องทิ้งไว้/ตั้ง cron</td></tr>
+<tr><td>เหมาะกับ</td><td>อยากเริ่มเร็ว ไม่อยากดูแลระบบ</td><td>อยากควบคุมลึก ประหยัดระยะยาว ข้อมูลอยู่กับตัว</td></tr>
+</table>
+
+<h2>5. สรุปสั้นที่สุด 🎯</h2>
+<ul>
+  <li><strong>Grok Bot น่าสนใจจริง</strong> — แนวคิด "ทีม AI บนคลาวด์" คือทิศทางที่อุตสาหกรรมกำลังไป</li>
+  <li><strong>ใช้บน Ubuntu 24.04 ได้</strong> (รองรับ Linux ทางการ)</li>
+  <li>แต่ถ้ามี AI Agent แบบ self-host ที่ทำงานได้ใกล้เคียงกันอยู่แล้วและปรับแต่งได้ลึกกว่า — <strong>การจ่ายรายเดือนเพิ่มอาจยังไม่คุ้ม</strong> เว้นแต่อยากลองของใหม่หรือต้องการงานที่ "ไม่ต้องเปิดเครื่องทิ้งไว้"</li>
+  <li>ผลิตภัณฑ์เพิ่งเปิดตัว ~2 สัปดาห์ ณ วันเขียน — <strong>รอให้ราคา/ฟีเจอร์นิ่งกว่านี้ก่อนตัดสินใจจ่ายเงิน</strong> คือคำแนะนำที่ปลอดภัยที่สุด</li>
+</ul>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · รีวิวจากเอกสารทางการ + ข่าว (ส.ค. 2026) · อัปเดต 25 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>

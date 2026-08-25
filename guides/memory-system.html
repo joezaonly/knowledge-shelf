@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ทำให้ AI "จำได้ไม่ลืม" — ระบบความจำ 4 ชั้นที่แชร์ข้ามเครื่อง — AnonyMous Shelf</title>
+<meta name="description" content="สถาปัตยกรรมความจำ 4 ชั้นสำหรับ AI Agent หลายเครื่อง: จำสั้น ทักษะ คลังความรู้ ค้นหาบทสนทนา พร้อมวิธีซิงก์ผ่าน Git">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#1e3a5f,#2563eb 60%,#60a5fa);border-radius:20px;padding:40px 34px}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.layers{display:grid;gap:12px;margin:18px 0}
+.layer{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;position:relative;overflow:hidden}
+.layer::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+.layer.l1::before{background:var(--gold)}
+.layer.l2::before{background:var(--teal)}
+.layer.l3::before{background:var(--blue)}
+.layer.l4::before{background:#a78bfa}
+.layer h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.layer .cap{font-size:11.5px;font-family:'JetBrains Mono',monospace;color:#5c677d}
+.layer p{font-size:13px;margin:8px 0 0}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🧠</div>
+  <h1>ทำให้ AI "จำได้ไม่ลืม"<br>ระบบความจำ 4 ชั้นที่แชร์ข้ามเครื่อง</h1>
+  <p>สถาปัตยกรรมที่ใช้กับ AI Agent หลายเครื่องพร้อมกัน — แก้ปัญหาเสร็จครั้งเดียว ทุกเครื่องเรียนรู้ตามได้ทันที ผ่าน Git ที่ซิงก์อัตโนมัติ</p>
+  <span class="badge">🤖 อัปเดต 25 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~10 นาที</span>
+  <span class="badge">🎯 ระดับ: วางระบบตามได้เลย</span>
+</div>
+
+<h2>1. ทำไมต้อง "หลายชั้น" 🤔</h2>
+<p>AI Agent สมัยใหม่มีความจำสองแบบที่มักถูกใช้ผิดที่: <strong>ความจำระยะสั้น</strong> (ในบทสนทนา — หายเมื่อเริ่มแชตใหม่) กับ <strong>ความจำถาวร</strong> (จำกัดมาก ~2,000 ตัวอักษร) ถ้าโยนทุกอย่างลงความจำถาวรจะเต็มทันที ถ้าพึ่งแต่แชตก็ลืมทุกครั้งที่เริ่มใหม่</p>
+<p>คำตอบคือ <strong>แยกข้อมูลเป็นชั้นตามหน้าที่</strong> — แต่ละชั้นมีขนาดและจุดประสงค์ต่างกัน แล้วให้ชั้นเล็กชี้ไปหาชั้นใหญ่</p>
+
+<h2>2. ระบบ 4 ชั้น 🏗️</h2>
+<div class="layers">
+  <div class="layer l1">
+    <h4>Layer 1: ความจำถาวร (Memory)</h4>
+    <div class="cap">~2,200 ตัวอักษร · โหลดทุกเทิร์น</div>
+    <p>ข้อเท็จจริงสำคัญที่ต้องใช้ตลอด: เจ้าของคือใคร ชอบอะไร เครื่องนี้ทำหน้าที่อะไร + <strong>ตัวชี้</strong>ไปคลังความรู้ — เก็บเฉพาะ "กุญแจ" ไม่เก็บ "ของ"</p>
+  </div>
+  <div class="layer l2">
+    <h4>Layer 2: ทักษะ (Skills)</h4>
+    <div class="cap">ไม่จำกัด · โหลดเมื่อเจองานตรงประเภท</div>
+    <p>"วิธีทำ" ที่พิสูจน์แล้ว — เขียนหลังแก้ปัญหาสำเร็จ (5+ ขั้นตอน) มีเงื่อนไขทริกเกอร์ คำสั่งแม่นยำ จุดที่มักพลาด และวิธีตรวจสอบ</p>
+  </div>
+  <div class="layer l3">
+    <h4>Layer 3: คลังความรู้ (Knowledge Base — Git repo)</h4>
+    <div class="cap">ไม่จำกัด · แชร์ข้ามเครื่องผ่าน Git</div>
+    <p>"เกิดอะไรขึ้น" ฉบับละเอียด — โน้ตแก้ปัญหาทุกเคส สเปกเครื่อง ดัชนีปัญหา ตารางการตัดสินใจ ซิงก์อัตโนมัติทุก 30 นาที</p>
+  </div>
+  <div class="layer l4">
+    <h4>Layer 4: ค้นหาบทสนทนาเก่า (Session Search)</h4>
+    <div class="cap">ไม่จำกัด · ค้นย้อนหลังอัตโนมัติ</div>
+    <p>บทสนทนาเต็มทุกเซสชันเก็บในฐานข้อมูล ค้นหาได้ด้วยข้อความ — ใช้กู้บริบทเก่าที่ลืมจด</p>
+  </div>
+</div>
+
+<h2>3. โครงสร้างคลังความรู้ที่แนะนำ 📁</h2>
+<pre><code>knowledge/                     ← Git repo (private) — ซิงก์ทุก 30 นาที
+├── Home.md                    ← หน้าแรก: ภาพรวม + ตารางเครื่อง
+├── problems/Problem Index.md  ← ดัชนี: ปัญหา → อาการ → วิธีแก้ → ลิงก์โน้ต
+├── machines/&lt;hostname&gt;.md     ← สเปก + ประวัติปัญหาของแต่ละเครื่อง
+├── solutions/
+│   ├── &lt;machine&gt;/             ← โน้ตแก้ปัญหาเฉพาะเครื่อง (เขียนลงชื่อเครื่องตัวเอง)
+│   └── shared/                ← วิธีที่ใช้ได้กับทุกเครื่อง
+├── decisions/                 ← การตัดสินใจสำคัญ + เหตุผล
+├── registry/                  ← machines.json + heartbeat (ใครออนไลน์ล่าสุด)
+├── scripts/                   ← สคริปต์ซิงก์/บูตสแตรป (เครื่องใหม่โคลนแล้วรันได้เลย)
+└── templates/                 ← เทมเพลตโน้ตแก้ปัญหา (บังคับใช้ — กันลืมหัวข้อ)</code></pre>
+
+<h3>เทมเพลตโน้ตแก้ปัญหา (บังคับใช้ทุกเคส)</h3>
+<p>ทุกโน้ตต้องมี: <strong>อาการ</strong> → <strong>สาเหตุ</strong> → <strong>วิธีแก้พร้อมคำสั่งที่ใช้จริง</strong> (copy-paste ได้) → <strong>คำสั่งตรวจสอบ</strong> → <strong>Rollback</strong> (ถ้าแก้ค่าระบบ) → <strong>ผลลัพธ์</strong> ตัวเลขก่อน/หลัง</p>
+
+<h2>4. ทำให้หลายเครื่องแชร์กัน 🔁</h2>
+<table>
+<tr><th>องค์ประกอบ</th><th>วิธีทำ</th></tr>
+<tr><td>แหล่งกลาง</td><td>Git repo <strong>private</strong> บน GitHub (เครื่องอื่นเข้าถึงผ่าน SSH key)</td></tr>
+<tr><td>ซิงก์อัตโนมัติ</td><td>cron ทุก 30 นาที: <code>git pull --rebase</code> ก่อน → มีของใหม่ค่อย commit+push (เงียบเมื่อไม่มีอะไรเปลี่ยน)</td></tr>
+<tr><td>กันชนกัน</td><td>กฎ: <strong>เครื่องใครเครื่องมัน</strong> — เขียนลงโฟลเดอร์ชื่อเครื่องตัวเองเท่านั้น, โฟลเดอร์ shared แก้ไขระวัง</td></tr>
+<tr><td>ตัวชี้วัดชีพ</td><td>heartbeat JSON ต่อเครื่อง — ดูได้ว่าเครื่องไหนซิงก์ล่าสุดเมื่อไหร่</td></tr>
+<tr><td>หน้าจอคน (ทางเลือก)</td><td>mirror ไป Notion ให้อ่านง่ายผ่านมือถือ — ตั้งให้ซิงก์จาก "เครื่องเดียว" กันเขียนซ้ำ</td></tr>
+</table>
+
+<h2>5. กฎเหล็กของระบบ ⚖️</h2>
+<ul>
+  <li><strong>แก้ปัญหาเสร็จ → เขียนทันที</strong> (ไม่รอให้สั่ง) + อัปเดตดัชนีปัญหาทุกครั้ง</li>
+  <li>ข้อมูลส่วนตัว/โทเค็น/รหัสผ่าน → <strong>ห้ามลงคลังเด็ดขาด</strong> เขียน <code>[REDACTED]</code> แทน</li>
+  <li>ทักษะเก็บ "วิธีทำ" · คลังเก็บ "ข้อมูล" · ความจำถาวรเก็บ "ตัวชี้" — ห้ามปน</li>
+  <li>ก่อนแก้ปัญหาใหม่ → ค้นดัชนีปัญหาก่อนเสมอ อาจเคยแก้แล้ว</li>
+  <li>USER.md (ข้อมูลเจ้าของ) เหมือนกันทุกเครื่อง · MEMORY.md (ข้อมูลเครื่อง) เครื่องใครเครื่องมัน</li>
+</ul>
+<div class="note warn">🚨 บทเรียนจริง: เคยมีเครื่องเก่าเขียนความรู้ลงพาธที่ไม่ได้ซิงก์ → ความรู้ "หายไป" เพราะไม่มีเครื่องไหนเห็น ตั้งแต่วันนั้นจึงระบุพาธเดียวตายตัวในเอกสาร + ตรวจพาธเก่าตกค้างเป็นขั้นตอนบังคับของเครื่องใหม่</div>
+
+<h2>6. บูตสแตรปเครื่องใหม่ในสคริปต์เดียว 🚀</h2>
+<p>เครื่องใหม่เข้าร่วมระบบด้วย <code>bootstrap.sh</code> ตัวเดียว: สร้าง SSH key → ให้เพิ่มคีย์เข้า GitHub → โคลนคลัง → ตั้งค่า cron → อัปเดต registry → ทดสอบซิงก์ → รายงานผล รวม ~10 นาทีจากเครื่องเปล่าเป็นสมาชิกเต็มตัว</p>
+<div class="note ok">✅ ผลลัพธ์ที่ได้: เครื่องใหม่แก้ปัญหาคืนนี้ เครื่องอื่นเรียนรู้ได้ภายใน 30 นาที — ความรู้ของระบบเติบโตแบบทบต้น ไม่มีวันลืมอีก</div>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · กลั่นจากระบบที่ใช้งานจริงกับ AI หลายเครื่อง · อัปเดต 25 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>
