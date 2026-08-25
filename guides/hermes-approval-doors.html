@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ประตู 2 ชั้นของ AI Agent — ปิดถามอนุมัติให้ถูกจุด — AnonyMous Shelf</title>
+<meta name="description" content="ทำไมปิดโหมดอนุมัติแล้วคำสั่งลัดยังถามอยู่: ระบบถามยืนยันของ AI agent มีหลายชั้นที่แยกจากกัน พร้อมวิธีตั้งค่าให้ถูกจุดและข้อยกเว้นที่ปิดไม่ได้">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa;--purple:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#4c1d95,#7c3aed 60%,#a78bfa);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🚪</div>
+  <h1>ประตู 2 ชั้นของ AI Agent — ปิดถามอนุมัติให้ถูกจุด</h1>
+  <p>สั่งปิดโหมดอนุมัติแล้ว แต่พอเริ่มเซสชันใหม่ระบบยังเด้งถามอยู่? คำตอบคือระบบถามยืนยันมี "หลายประตูที่แยกจากกัน" — ปิดประตูเดียวไม่พอ และบางประตูออกแบบมาให้ปิดไม่ได้เลย</p>
+  <span class="badge">🤖 อัปเดต 26 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~7 นาที</span>
+  <span class="badge">🎯 ระดับ: ทำตามได้เลย</span>
+</div>
+
+<h2>1. อาการที่เจอ 🧭</h2>
+<p>ตั้งค่าให้ AI ไม่ต้องขออนุมัติก่อนรันคำสั่งแล้ว แต่:</p>
+<ul>
+  <li>พิมพ์คำสั่งลัดล้างเซสชัน (เช่น <code>/new</code>, <code>/reset</code>) → <strong>ยังเด้งถามยืนยัน</strong></li>
+  <li>ให้ AI เขียนไฟล์บางประเภท (เช่น ไฟล์ตั้งค่าพฤติกรรมของ AI เอง) → <strong>ถามทุกครั้ง</strong> แม้ปิดโหมดแล้ว</li>
+</ul>
+<p>ทั้งสองอย่างนี้ <strong>ไม่ใช่บั๊ก</strong> — เป็นคนละประตูกับคำสั่งเชลล์ปกติ</p>
+
+<h2>2. แผนผังประตูทั้งระบบ 🗺️</h2>
+<table>
+<tr><th>ประตู</th><th>คุมอะไร</th><th>ปิดได้ไหม</th></tr>
+<tr><td><strong>1. โหมดอนุมัติคำสั่งเชลล์</strong><br><code>approvals.mode</code></td><td>คำสั่งที่ AI รันผ่านเทอร์มินัล (<code>rm</code>, <code>git reset</code> ฯลฯ)</td><td>✅ ปิดได้: <code>off</code></td></tr>
+<tr><td><strong>2. ยืนยันคำสั่งลัดทำลายล้าง</strong><br><code>approvals.destructive_slash_confirm</code></td><td>คำสั่งลัดที่ล้างงาน: <code>/new</code>, <code>/reset</code>, <code>/undo</code></td><td>✅ ปิดได้: <code>false</code></td></tr>
+<tr><td><strong>3. ไฟล์สั่งพฤติกรรม AI</strong></td><td>ไฟล์อย่าง <code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>.cursorrules</code> ที่ "สอน" AI สำหรับทุกเซสชันถัดไป</td><td>❌ <strong>ถามเสมอ ปิดไม่ได้</strong></td></tr>
+<tr><td><strong>4. บล็อกคำสั่งหายนะ</strong></td><td>คำสั่งล้างดิสก์ ปิดเครื่อง ลบระบบ — ระดับทำลายล้างถาวร</td><td>❌ <strong>บล็อกถาวร ปิดไม่ได้</strong> แม้โหมด off</td></tr>
+</table>
+<div class="note warn">🚨 <strong>บทเรียนสำคัญ:</strong> ประตู 1 กับ 2 เป็นอิสระจากกันโดยสมบูรณ์ — ตั้งค่าประตู 1 เป็น <code>off</code> แล้วประตู 2 ไม่เปลี่ยนตาม ต้องปิดทีละตัว</div>
+
+<h2>3. ทำไมประตู 3-4 ปิดไม่ได้ (และทำไมควรดีใจ) 🔒</h2>
+<p>ไฟล์อย่าง <code>AGENTS.md</code> คือ "คำสั่งที่ AI จะอ่านทุกเซสชันในอนาคต" — ถ้าเว็บที่ AI เปิดอ่านถูกฝังข้อความอันตราย (prompt injection) แล้วหลอกให้ AI แก้ไฟล์นี้ได้ คำสั่งอันตรายจะฝังถาวรข้ามทุกเซสชัน ระบบจึงบังคับถามคนทุกครั้ง:</p>
+<ul>
+  <li>ป้องกัน "คำสั่งฝังถาวร" จากเนื้อหาภายนอก</li>
+  <li>หลักเดียวกันกับ: <strong>AI ไม่ควรปิดระบบรักษาความปลอดภัยของตัวเองได้</strong></li>
+</ul>
+<div class="note">💡 เจอเด้งถามตอนให้ AI เขียนไฟล์ประเภทนี้ = ทำงานถูกต้องแล้ว ไม่ใช่ความผิดพลาด</div>
+
+<h2>4. วิธีตั้งค่าให้ถูกจุด ⚙️</h2>
+<p><span class="role h">👤 คนทำ</span>พิมพ์คำสั่งเอง (หรือสั่งให้ AI รัน) — ตรวจค่าได้ทันที ไม่ต้องรีสตาร์ท:</p>
+<pre><code># ปิดการถามอนุมัติคำสั่งเชลล์ (เทียบเท่าโหมด --yolo)
+hermes config set approvals.mode off
+
+# ปิดการยืนยันคำสั่งลัดล้างเซสชัน
+hermes config set approvals.destructive_slash_confirm false
+
+# ตรวจค่า
+hermes config get approvals.mode                        # ต้องได้ off
+hermes config get approvals.destructive_slash_confirm   # ต้องได้ false</code></pre>
+<div class="note ok">✅ ทั้งสองค่าอ่านจากไฟล์ตั้งค่าแบบสด — มีผลทันทีไม่ต้องเริ่มเซสชันใหม่ (ค่าถูกแคชด้วยเวลาแก้ไขไฟล์)</div>
+
+<h3>ทางเลือกตรงกลาง (แนะนำถ้าไม่ได้รีบ)</h3>
+<table>
+<tr><th>โหมด</th><th>พฤติกรรม</th></tr>
+<tr><td><code>smart</code> (ค่าเริ่มต้น)</td><td>คำสั่งปลอดภัยผ่านเอง, อันตรายปฏิเสธ, ไม่แน่ใจถาม</td></tr>
+<tr><td><code>manual</code></td><td>ถามทุกคำสั่ง</td></tr>
+<tr><td><code>off</code></td><td>ไม่ถามเลย — แต่ประตู 3 และ 4 ยังทำงานอยู่</td></tr>
+</table>
+
+<h2>5. บทเรียนของจริง 🛠️</h2>
+<table>
+<tr><th>ปัญหา</th><th>สาเหตุ</th><th>วิธีแก้</th></tr>
+<tr><td>ปิดโหมดแล้ว <code>/new</code> ยังถาม</td><td>ประตูคำสั่งลัดแยกจากโหมดอนุมัติ</td><td>ตั้ง <code>destructive_slash_confirm: false</code> เพิ่ม</td></tr>
+<tr><td>ตั้ง <code>mode: off</code> ใน YAML แล้วกลายเป็น <code>false</code></td><td>YAML แปลคำว่า <code>off</code> เป็น boolean</td><td>ใส่เครื่องหมายคำพูด: <code>mode: 'off'</code> หรือใช้ <code>hermes config set</code></td></tr>
+<tr><td>AI เขียน AGENTS.md แล้วถาม ทั้งที่ปิดโหมดแล้ว</td><td>ไฟล์สั่งพฤติกรรมถูกปกป้องเสมอ</td><td>ไม่ต้องแก้ — กดยืนยันได้ เป็นไปตามออกแบบ</td></tr>
+<tr><td>คำสั่งล้างดิสก์ถูกบล็อกแม้ --yolo</td><td>บล็อกคำสั่งหายนะเป็นชั้นล่างสุด</td><td>รันเองในเทอร์มินัลถ้าจำเป็นต้องทำจริง</td></tr>
+<tr><td>อยากรู้ว่าใคร/อะไรถาม</td><td>ดูที่ข้อความ: เชลล์ = ประตู 1, /new = ประตู 2, ไฟล์ .md = ประตู 3</td><td>แก้ให้ถูกประตู</td></tr>
+</table>
+
+<h2>6. เช็กลิสต์ "ไม่ต้องถามอีกเลย" 📋</h2>
+<div class="note ok">✅ <strong>ต้องการลื่นไหลสูงสุด:</strong><br>
+1. <code>approvals.mode</code> = <code>off</code><br>
+2. <code>approvals.destructive_slash_confirm</code> = <code>false</code><br>
+3. <strong>ยอมรับว่า</strong>ไฟล์สั่งพฤติกรรม (AGENTS.md ฯลฯ) จะยังถาม — นี่คือความปลอดภัยขั้นต่ำที่เหลืออยู่</div>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · เขียนจากการแก้ปัญหาจริงบน Hermes Agent + ตรวจโค้ดต้นฉบับยืนยันพฤติกรรม · อัปเดต 26 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>

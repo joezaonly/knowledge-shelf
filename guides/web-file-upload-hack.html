@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หลอกให้เว็บรับไฟล์ — อัปโหลดผ่านเว็บที่ไม่มีปุ่มให้ AI กด — AnonyMous Shelf</title>
+<meta name="description" content="เทคนิคให้อัปโหลดไฟล์เข้าเว็บผ่าน hidden file input: ฉีดไฟล์เป็น base64, เรียก React onChange ตรงๆ, หา input ตัวที่เพิ่งเกิด — ใช้ได้กับเว็บสมัยใหม่ทุกแบบ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#1e3a5f,#2563eb 60%,#60a5fa);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">📤</div>
+  <h1>หลอกให้เว็บรับไฟล์ — อัปโหลดผ่านเว็บที่ "ไม่มีปุ่มให้ AI กด"</h1>
+  <p>เว็บสมัยใหม่ซ่อนปุ่มอัปโหลดไว้หลัง input ที่มองไม่เห็น และดักจับการเปลี่ยนไฟล์อย่างซับซ้อน: สูตรจริงที่ใช้ได้ผล — ฉีดไฟล์เข้าหน้าเป็นชิ้นๆ แล้วเรียก React ตรงๆ</p>
+  <span class="badge">🤖 อัปเดต 26 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~10 นาที</span>
+  <span class="badge">🎯 ระดับ: ขั้นกลาง (ต้องมี CDP)</span>
+</div>
+
+<h2>1. ปัญหาที่เจอ 🧭</h2>
+<p>AI ต้องอัปโหลดไฟล์เข้าเว็บ แต่เว็บทำแบบนี้:</p>
+<ul>
+  <li>ปุ่ม "Upload" ที่เห็นจริงๆ เป็นแค่ตัวเปิด <code>&lt;input type="file"&gt;</code> ที่ซ่อนอยู่ (<code>display:none</code>)</li>
+  <li>framework สมัยใหม่ (React/Vue) <strong>ไม่อ่าน</strong>ค่าที่ตั้งผ่าน <code>element.files = ...</code> ตรงๆ</li>
+  <li>บางเว็บลบ input ทิ้งทันทีหลังเลือกไฟล์ → ตั้งค่าไม่ทัน</li>
+</ul>
+<div class="note warn">🚨 <strong>บทเรียนข้อ 1:</strong> ตั้ง <code>input.files</code> ผ่าน DOM ตรงๆ แล้วเว็บไม่รับเลย — ไม่มี error แต่ไฟล์ไม่เข้า เพราะ React มีระบบติดตามการเปลี่ยนของตัวเอง</div>
+
+<h2>2. วิธีที่ลองแล้วไม่เวิร์ก ❌</h2>
+<table>
+<tr><th>วิธี</th><th>ผล</th></tr>
+<tr><td><code>input.files = dataTransfer.files</code> ตรงๆ</td><td>เว็บเงียบ — ไม่รับไฟล์</td></tr>
+<tr><td><code>dispatchEvent(new Event('change'))</code></td><td>React ไม่เห็นว่าเป็นการเปลี่ยนจริง</td></tr>
+<tr><td>ลาก-วางจำลอง (drag-drop) ด้วยไฟล์</td><td>บางเว็บรับ บางเว็บไม่รับ — ขึ้นกับเว็บ</td></tr>
+<tr><td>fetch ไฟล์จากในหน้าแล้วทำ drop</td><td>เว็บที่บล็อก mixed-content จะไม่ยอม</td></tr>
+</table>
+
+<h2>3. สูตรที่เวิร์ก: 3 ขั้นตอน ⭐</h2>
+<p><span class="role a">🤖 AI ทำ</span>ทั้งหมด ผ่านการเชื่อมต่อกับบราวเซอร์ (CDP):</p>
+
+<h3>ขั้น 1: ฉีดไฟล์เข้าหน้าเว็บเป็นชิ้นๆ</h3>
+<p>ไฟล์ใหญ่เกินกว่าจะส่งคำสั่งเดียว → ตัดเป็นชิ้นๆ แล้วประกอบในหน้า:</p>
+<pre><code># ฝั่ง AI: ตัด base64 เป็นชิ้น ~40KB แล้วฉีดทีละชิ้น
+js('window.__buB64 = ""')
+for chunk in chunks:
+    js(f'window.__buB64 += {json.dumps(chunk)}')
+
+# ตรวจว่าครบ
+js('window.__buB64.length')   # ต้องเท่ากับต้นฉบับ</code></pre>
+
+<h3>ขั้น 2: สร้าง File object + ใส่เข้า input</h3>
+<pre><code>js("""(() => {
+  // แปลง base64 → File
+  const bin = atob(window.__buB64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i &lt; bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const blob = new Blob([bytes], {type: 'image/jpeg'});
+  const file = new File([blob], 'product.jpg', {type: 'image/jpeg'});
+
+  // ใส่เข้า input ที่ซ่อนอยู่
+  const input = document.querySelector('input[type=file]');
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  input.files = dt.files;
+})()""")</code></pre>
+<div class="note warn">🚨 <strong>บทเรียนข้อ 2:</strong> ถ้าเว็บสร้าง input ใหม่ตอนกดปุ่ม "Upload" ต้องหา <strong>ตัวที่เพิ่งเกิด</strong> — เลือกตัวแรกอาจเป็นตัวเก่าที่เว็บเลิกฟังแล้ว</div>
+
+<h3>ขั้น 3: เรียก React ตรงๆ</h3>
+<pre><code>js("""(() => {
+  const input = document.querySelector('input[type=file]');
+  // React เก็บ handler ไว้ใน property พิเศษของ element
+  const key = Object.keys(input).find(k =&gt; k.startsWith('__reactProps'));
+  const props = input[key];
+  if (props &amp;&amp; props.onChange) {
+    props.onChange({
+      target: input,
+      currentTarget: input,
+      preventDefault() {},
+      stopPropagation() {},
+      nativeEvent: new Event('change'),
+      persist() {}
+    });
+    return 'onChange called';
+  }
+  return 'no handler';
+})()""")</code></pre>
+<div class="note ok">✅ เรียก <code>onChange</code> ตรงๆ แบบนี้ = บอก React ว่า "มีการเปลี่ยนไฟล์" เหมือนผู้ใช้เลือกเองจริงๆ — เว็บจะรับไฟล์ทันที</div>
+
+<h2>4. เช็กลิสต์ก่อนส่งไฟล์ 📋</h2>
+<div class="note">💡 <strong>ตรวจก่อนเสมอ:</strong><br>
+1. ไฟล์มีนามสกุลที่เว็บรับ (ดูจาก <code>accept="..."</code> ของ input)<br>
+2. ตั้งชื่อไฟล์ให้ถูก (บางเว็บเช็คชื่อ)<br>
+3. ถ้าเว็บต้องการกดปุ่ม "Upload" ก่อน → กดก่อน แล้วค่อยหา input ตัวใหม่</div>
+
+<h2>5. บทเรียนของจริง 🛠️</h2>
+<table>
+<tr><th>ปัญหา</th><th>สาเหตุ</th><th>วิธีแก้</th></tr>
+<tr><td>เว็บไม่รับไฟล์เลย เงียบๆ</td><td>ตั้ง <code>files</code> ตรงๆ โดยไม่แจ้ง React</td><td>เรียก <code>onChange</code> ผ่าน <code>__reactProps</code> ตรงๆ</td></tr>
+<tr><td>input หายไปหลังเลือก</td><td>เว็บลบ input ทิ้งหลังได้ไฟล์</td><td>ทำทุกอย่างในคำสั่งเดียว ไม่แบ่งหลายรอบ</td></tr>
+<tr><td>เลือก input ผิดตัว</td><td>เว็บมี input หลายตัว (เก่า+ใหม่)</td><td>หาตัวที่เพิ่งเกิด (ตัวสุดท้าย) เสมอ</td></tr>
+<tr><td>ส่งไฟล์ใหญ่แล้วคำสั่งค้าง</td><td>ไฟล์ใหญ่เกินส่งคำสั่งเดียว</td><td>ตัดเป็นชิ้น ~40KB แล้วประกอบในหน้า</td></tr>
+<tr><td>fetch ไฟล์จากหน้าไม่เข้า</td><td>เว็บบล็อก mixed-content หรือ CORS</td><td>ใช้วิธีฉีด base64 แทน fetch</td></tr>
+</table>
+
+<h2>6. ส่วนไหนคนทำ / ส่วนไหน AI ทำ 🧩</h2>
+<table>
+<tr><th>ขั้น</th><th>งาน</th><th>ใครทำ</th></tr>
+<tr><td>1</td><td>เตรียมไฟล์ที่จะอัปโหลด</td><td>👤 คน</td></tr>
+<tr><td>2</td><td>เปิดหน้าเว็บให้ถึงจุดที่มีปุ่ม Upload</td><td>🤖 AI</td></tr>
+<tr><td>3</td><td>ฉีดไฟล์ + เรียก React</td><td>🤖 AI</td></tr>
+<tr><td>4</td><td>ตรวจว่าไฟล์เข้าแล้ว (ดูจากหน้าเว็บ)</td><td>🤖 AI</td></tr>
+</table>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · เขียนจากงานจริงที่ต้องอัปโหลดรูปสินค้าเข้าเว็บสร้างวิดีโอ · อัปเดต 26 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>

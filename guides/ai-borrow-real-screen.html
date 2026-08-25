@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ให้ AI ยืมจอจริงของคุณ — เปิดบราวเซอร์บนหน้าจอผู้ใช้ให้ล็อกอินเอง — AnonyMous Shelf</title>
+<meta name="description" content="สูตรเปิด Chrome บนจอจริงของผู้ใช้ให้ AI ควบคุมผ่าน CDP โดยผู้ใช้พิมพ์รหัสผ่านเองบนจอ ไม่ต้องใช้ VNC หรือจอเสมือน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#831843,#be185d 60%,#f472b6);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🖥️</div>
+  <h1>ให้ AI ยืมจอจริงของคุณ — เปิดบราวเซอร์บนหน้าจอผู้ใช้<br>ให้ล็อกอินเอง แล้ว AI คุมที่เหลือ</h1>
+  <p>งานที่ต้องล็อกอินเว็บ (ใส่รหัสผ่าน, 2FA) แต่อยากให้ AI ควบคุมต่อ: สูตรเปิด Chrome บนจอจริงของผู้ใช้ผ่าน CDP โดยผู้ใช้พิมพ์รหัสเอง ไม่ต้องใช้ VNC หรือจอเสมือนให้ยุ่งยาก</p>
+  <span class="badge">🤖 อัปเดต 26 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~10 นาที</span>
+  <span class="badge">🎯 ระดับ: ทำตามได้เลย</span>
+</div>
+
+<h2>1. ปัญหาที่ต้องแก้ 🧭</h2>
+<p>AI agent ต้องทำงานกับเว็บที่ต้องล็อกอิน (เช่น สร้างวิดีโอด้วย AI, จัดการบัญชี) แต่:</p>
+<ul>
+  <li>AI <strong>ไม่ควร</strong>รู้รหัสผ่านของผู้ใช้</li>
+  <li>ผู้ใช้ต้องพิมพ์รหัสเอง หรือยืนยัน 2FA ด้วยตัวเอง</li>
+  <li>หลังจากล็อกอินแล้ว อยากให้ AI ควบคุมต่อทั้งหมด</li>
+</ul>
+<div class="note warn">🚨 อย่าให้ AI พิมพ์รหัสผ่านแทนผู้ใช้ — ถ้ามี 2FA ก็ทำไม่ได้ด้วย และเป็นการเก็บข้อมูลอ่อนไหวโดยไม่จำเป็น</div>
+
+<h2>2. วิธีที่ผิด (เคยทำแล้ว) ❌</h2>
+<p><span class="role a">🤖 AI ทำ</span>เปิดบราวเซอร์แบบ "ลอย" บนจอเสมือน:</p>
+<table>
+<tr><th>แนวทาง</th><th>ปัญหา</th></tr>
+<tr><td>เปิด Chrome บน Xvfb (จอเสมือน)</td><td>ผู้ใช้ไม่เห็นอะไร — ต้องต่อด้วย VNC เพิ่ม</td></tr>
+<tr><td>ทำ VNC tunnel ให้ผู้ใช้เข้าผ่านลิงก์</td><td>ซับซ้อน, ต้องแชร์รหัส, เสี่ยงถ้าลิงก์หลุด</td></tr>
+<tr><td>เปิดบนจอจริงแต่ใช้โปรไฟล์หลัก</td><td>Chrome <strong>บล็อก</strong> <code>--remote-debugging-port</code> บนโปรไฟล์หลัก</td></tr>
+</table>
+
+<h2>3. วิธีที่ถูก: เปิดบนจอจริง + โปรไฟล์แยก ✅</h2>
+<p><span class="role h">👤 คนทำ</span>แค่เปิดเทอร์มินัลรันคำสั่งเดียว (หรือให้ AI รันให้) · <span class="role a">🤖 AI ทำ</span>ที่เหลือทั้งหมดผ่าน CDP</p>
+
+<h3>ขั้น 1: หา display จริงของผู้ใช้</h3>
+<pre><code># ดูว่าใครล็อกอินอยู่ที่จอไหน
+loginctl list-sessions --no-legend
+# ผลลัพธ์จะมีชื่อผู้ใช้ + ประเภท (x11 / wayland)
+
+# หา DISPLAY และ XAUTHORITY ของผู้ใช้คนนั้น
+# (ตัวอย่าง: ผู้ใช้ชื่อ "someone" ล็อกอินอยู่ที่ :0)
+DISPLAY=:0
+XAUTHORITY=/run/user/1000/gdm/Xauthority   # เลข 1000 = UID ของผู้ใช้</code></pre>
+
+<h3>ขั้น 2: เปิด Chrome ในนามผู้ใช้จอ + โปรไฟล์แยก</h3>
+<pre><code>sudo -u someone env \
+  DISPLAY=:0 \
+  XAUTHORITY=/run/user/1000/gdm/Xauthority \
+  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+  google-chrome \
+    --no-first-run --no-default-browser-check \
+    --remote-debugging-port=9222 \
+    --user-data-dir=/home/someone/.chrome-automation \
+    --window-size=1600,1000 \
+    about:blank</code></pre>
+<div class="note">💡 <code>--user-data-dir</code> สำคัญมาก — Chrome ไม่ยอมเปิด remote debugging บนโปรไฟล์หลัก (default profile) เพื่อความปลอดภัย ต้องชี้ไปที่ไดเรกทอรีแยก</div>
+<div class="note warn">🚨 ถ้าไม่มี <code>--user-data-dir</code> Chrome จะขึ้น: <code>DevTools remote debugging requires a non-default data directory</code> แล้วไม่เปิด port 9222</div>
+
+<h3>ขั้น 3: ตรวจว่า CDP พร้อม</h3>
+<pre><code># ตรวจว่า Chrome เปิด port 9222 แล้ว
+curl -s http://127.0.0.1:9222/json/version | head -3
+# ต้องเห็น: "Browser": "Chrome/..." + "Protocol-Version"</code></pre>
+
+<h3>ขั้น 4: ให้ผู้ใช้ล็อกอินเองบนจอ</h3>
+<p>หน้าต่าง Chrome จะปรากฏบนจอจริงของผู้ใช้ — พิมพ์อีเมล รหัสผ่าน ยืนยัน 2FA ได้เลย ส่วน AI รออยู่เฉยๆ ไม่ต้องยุ่ง</p>
+
+<h3>ขั้น 5: AI เชื่อมต่อและทำงานต่อ</h3>
+<pre><code># AI เชื่อมต่อผ่าน CDP (port 9222) แล้วสั่งงานได้เลย
+# เช่น เปิดหน้าอื่น, กดปุ่ม, พิมพ์, อ่านข้อความบนหน้า</code></pre>
+
+<h2>4. สูตรย่อ: สิ่งที่ต้องจำ 📋</h2>
+<table>
+<tr><th>รายการ</th><th>ค่า</th></tr>
+<tr><td>Display ของผู้ใช้</td><td><code>:0</code> (ตรวจด้วย <code>loginctl</code>)</td></tr>
+<tr><td>XAUTHORITY</td><td><code>/run/user/&lt;UID&gt;/gdm/Xauthority</code></td></tr>
+<tr><td>Remote debugging port</td><td><code>9222</code> (หรือเลขอื่นที่ว่าง)</td></tr>
+<tr><td>User data dir</td><td>ต้องเป็นโฟลเดอร์แยก — ห้ามใช้โปรไฟล์หลัก</td></tr>
+<tr><td>ใครพิมพ์รหัสผ่าน</td><td>👤 ผู้ใช้เอง บนจอจริง</td></tr>
+<tr><td>ใครคุมหลังจากนั้น</td><td>🤖 AI ผ่าน CDP</td></tr>
+</table>
+
+<h2>5. บทเรียนของจริง 🛠️</h2>
+<table>
+<tr><th>ปัญหา</th><th>สาเหตุ</th><th>วิธีแก้</th></tr>
+<tr><td>Chrome ไม่เปิด port 9222</td><td>ใช้โปรไฟล์หลัก (default)</td><td>เพิ่ม <code>--user-data-dir=/path/to/separate</code></td></tr>
+<tr><td>เปิด Chrome แล้วจอดำ/ไม่เห็น</td><td>ไม่ได้ส่ง DISPLAY หรือ XAUTHORITY</td><td>ส่งทั้ง <code>DISPLAY=:0</code> และ <code>XAUTHORITY=...</code></td></tr>
+<tr><td>เปิดในนาม root แต่จอไม่ขึ้น</td><td>รันเป็น root ไม่ได้ใช้ session ของผู้ใช้</td><td>ใช้ <code>sudo -u &lt;user&gt; env DISPLAY=...</code></td></tr>
+<tr><td>อยากทำแบบ headless (ไม่มีจอ)</td><td>งานนี้ต้องมีจอให้ผู้ใช้ล็อกอิน</td><td>ใช้จอเสมือน (Xvfb) + VNC แทน — แต่ซับซ้อนกว่า</td></tr>
+<tr><td>Chrome ขึ้น "Allow remote debugging?"</td><td>Chrome เวอร์ชันใหม่ถามยืนยัน</td><td>คลิก Allow บนจอ หรือใช้โปรไฟล์แยก (ไม่มี popup)</td></tr>
+</table>
+
+<h2>6. ส่วนไหนคนทำ / ส่วนไหน AI ทำ 🧩</h2>
+<table>
+<tr><th>ขั้น</th><th>งาน</th><th>ใครทำ</th><th>เวลา</th></tr>
+<tr><td>1</td><td>หา display + เปิด Chrome ด้วยคำสั่ง</td><td>🤖 AI (หรือ 👤 รันเอง)</td><td>1 นาที</td></tr>
+<tr><td>2</td><td>ล็อกอินเว็บ: พิมพ์รหัส, ยืนยัน 2FA</td><td>👤 คน (บนจอจริง)</td><td>1-3 นาที</td></tr>
+<tr><td>3</td><td>แจ้งว่าล็อกอินเสร็จแล้ว</td><td>👤 คน (พิมพ์บอก)</td><td>—</td></tr>
+<tr><td>4</td><td>เชื่อมต่อ CDP + ทำงานต่อทั้งหมด</td><td>🤖 AI</td><td>ตามงาน</td></tr>
+<tr><td>5</td><td>ตรวจผลลัพธ์บนจอ</td><td>👤 คน</td><td>ตามงาน</td></tr>
+</table>
+
+<div class="note ok">✅ ผลลัพธ์: ผู้ใช้พิมพ์รหัสเอง (ปลอดภัย) · AI ทำงานต่อทั้งหมด (อัตโนมัติ) · ไม่ต้องทำ VNC หรือจอเสมือน · โปรไฟล์บราวเซอร์แยกไม่กระทบข้อมูลหลักของผู้ใช้</div>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · เขียนจากงานจริงที่ต้องล็อกอินเว็บแล้วให้ AI สร้างวิดีโอต่อ · อัปเดต 26 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>
