@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ภาษาไทยกลายเป็น "ตัวต่างดาว" บนเว็บ — แก้อย่างถาวรแบบไม่ต้องพึ่งฟอนต์นอก — AnonyMous Shelf</title>
+<meta name="description" content="เว็บแสดงภาษาไทยเป็นกล่อง □ เพี้ยนทั้งหน้า: วิธีไล่สาเหตุเป็นชั้น และแก้แบบถาวรด้วยการฝังฟอนต์ไทยไว้ในเว็บตัวเอง ไม่ต้องพึ่งบริการภายนอก">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#14532d,#15803d 60%,#4ade80);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🔤</div>
+  <h1>ภาษาไทยกลายเป็น "ตัวต่างดาว" บนเว็บสาธารณะ<br>— ไล่สาเหตุเป็นชั้น และแก้แบบถาวร</h1>
+  <p>เว็บที่เพิ่งขึ้นออนไลน์แสดงไทยเป็นกล่อง □ ทั้งหน้า ทั้งที่โค้ดไม่มีอะไรผิด: สูตรวินิจฉัย 3 ชั้น และวิธีแก้ที่ฝังฟอนต์ไทยไว้ในเว็บตัวเอง ไม่ต้องพึ่งบริการภายนอกอีกเลย</p>
+  <span class="badge">🤖 อัปเดต 26 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~8 นาที</span>
+  <span class="badge">🎯 ระดับ: ทำตามได้เลย</span>
+</div>
+
+<h2>1. อาการที่เห็น 👀</h2>
+<p>เปิดเว็บที่เราเพิ่ง deploy ขึ้นบริการโฮสต์เว็บฟรี (เช่น <code>username.github.io</code>) แล้ว<strong>ภาษาไทยกลายเป็นกล่องสี่เหลี่ยม</strong>หรือสัญลักษณ์เพี้ยนอ่านไม่ออก — "ตัวหนังสือต่างดาว"</p>
+<table>
+<tr><th>ที่ตรวจแล้ว</th><th>ผล</th></tr>
+<tr><td>Encoding ของไฟล์</td><td>UTF-8 ถูกต้อง (ไม่ใช่ปัญหา)</td></tr>
+<tr><td>เนื้อหาในโค้ด</td><td>ภาษาไทยปกติ ดูในซอร์สได้</td></tr>
+<tr><td>ฟอนต์ในเครื่อง</td><td>เครื่องมีฟอนต์ไทยครบ</td></tr>
+</table>
+<div class="note warn">🚨 อย่าเพิ่งเปลี่ยนโค้ดสุ่มๆ — ปัญหานี้ 90% อยู่ที่ "ฟอนต์" ไม่ใช่เนื้อหา หรือ encoding</div>
+
+<h2>2. ไล่สาเหตุเป็น 3 ชั้น 🔍</h2>
+<p><span class="role a">🤖 AI ทำ</span>วิเคราะห์ไล่จากบนลงล่าง — แต่ละชั้นมีวิธีเช็กของตัวเอง:</p>
+
+<h3>ชั้นที่ 1: อ้างฟอนต์ที่ไม่มีอยู่จริง</h3>
+<p>CSS เขียน <code>font-family: 'Sarabun'</code> ไว้ แต่<strong>ไม่เคยโหลดฟอนต์นั้นเข้ามา</strong> → เบราว์เซอร์หาไม่เจอ ก็วาดตัวหนังสือไม่ได้</p>
+<pre><code># เช็ก: ใน CSS มี @font-face หรือ @import ที่โหลดฟอนต์นั้นจริงไหม
+grep -n "font-face\|@import" assets/css/*.css</code></pre>
+
+<h3>ชั้นที่ 2: โหลดฟอนต์จากบริการนอกไม่ได้ (เงียบ!)</h3>
+<p>เพิ่ม <code>@import url('https://fonts.googleapis.com/...')</code> แล้วคิดว่าจบ — ปรากฏว่าเครือข่ายนั้นเข้าบริการฟอนต์นอกไม่ได้ ผลคือ <strong>ไม่มี error ใดๆ แต่ฟอนต์ไม่มา</strong></p>
+<pre><code># เช็กจากเครื่อง: ดึงได้ด้วยไหม
+curl -s -o /dev/null -w "%{http_code}" "https://fonts.googleapis.com/css2?family=Sarabun&display=swap"
+
+# เช็กจากบราวเซอร์จริง (สำคัญกว่า!) ผ่าน DevTools/CDP:
+document.fonts.size          # 0 = ไม่มีเว็บฟอนต์โหลดเลย</code></pre>
+<div class="note warn">🚨 <strong>กับดัก:</strong> <code>document.fonts.check('16px Sarabun')</code> ตอบ <code>true</code> ได้แม้ฟอนต์ยังไม่โหลด — เพราะมันตรวจว่า "ถ้าจะใช้ฟอนต์นี้ วาดได้ไหม" ซึ่งเบราว์เซอร์นับฟอนต์ fallback ด้วย อย่าใช้เป็นตัวตัดสิน</div>
+
+<h3>ชั้นที่ 3: เบราว์เซอร์/โปรไฟล์ไม่มีฟอนต์ไทยสำรอง</h3>
+<p>ถ้าสองชั้นแรกผ่านแต่ยังเพี้ยน เช็กว่าเบราว์เซอร์ตัวนั้นมองเห็นฟอนต์ไทยของระบบหรือไม่:</p>
+<pre><code>fc-list :lang=th | head -5    # ต้องมีอย่างน้อย 1 ตัว (เช่น Noto Sans Thai)</code></pre>
+
+<h2>3. วิธีแก้แบบถาวร: ฝังฟอนต์ไทยไว้ในเว็บเอง ✅</h2>
+<p><span class="role h">👤 คนทำ</span>แค่ดูผลลัพธ์สุดท้าย · <span class="role a">🤖 AI ทำ</span>ทุกขั้นตอน:</p>
+
+<h3>ขั้น 1: ดึง "subset ไทย" ของฟอนต์มา (เล็กมาก ~10 KB)</h3>
+<p>บริการฟอนต์แยกไฟล์ตามช่วงอักษร — เฉพาะส่วนไทยน้ำหนักละไม่ถึง 10 KB:</p>
+<pre><code># ⚠️ ต้องใส่ User-Agent เป็นเบราว์เซอร์จริง ไม่งั้นจะได้ไฟล์ TTF ตัวเต็มใหญ่ๆ แทน
+UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
+    (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36"
+
+curl -s -H "User-Agent: $UA" \
+  "https://fonts.googleapis.com/css2?family=Sarabun:wght@400&display=swap"
+# ใน CSS ที่ได้ หาบล็อก /* thai */ แล้วคัดลอก URL .woff2 ออกมา
+# ดาวน์โหลดเก็บไว้ในเว็บ: assets/fonts/sarabun-400-thai.woff2</code></pre>
+
+<h3>ขั้น 2: ประกาศ @font-face ชี้ไฟล์ในเว็บ</h3>
+<pre><code>@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;                     /* แสดงฟอนต์ระบบก่อน ระหว่างโหลด */
+  src: url('../fonts/sarabun-400-thai.woff2') format('woff2');
+  unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC;  /* โหลดเฉพาะเมื่อเจอไทย */
+}</code></pre>
+<div class="note">💡 <code>unicode-range</code> ทำให้เบราว์เซอร์ดาวน์โหลดไฟล์นี้เฉพาะเมื่อหน้ามีอักษรไทยจริงๆ — หน้าภาษาอังกฤษไม่เสียแบนด์วิดท์เลย</div>
+
+<h3>ขั้น 3: เผยแพร่แล้วตรวจ</h3>
+<pre><code># ไฟล์ฟอนต์ต้องเข้าถึงได้
+curl -s -o /dev/null -w "%{http_code}" \
+  https://username.github.io/assets/fonts/sarabun-400-thai.woff2   # ต้อง 200
+
+# ในบราวเซอร์ (DevTools console) — ตรวจว่าโหลดจริง
+document.fonts.load('400 20px Sarabun', 'ทดสอบภาษาไทย')
+  .then(f =&gt; console.log(f.length))   // ได้ 1 = สำเร็จ</code></pre>
+
+<h2>4. ผลลัพธ์ที่ได้ 🎯</h2>
+<div class="note ok">✅ เว็บแสดงไทยถูกต้อง 100% — ตรวจผ่าน <code>document.fonts</code>: ฟอนต์โหลดครบทั้งสองน้ำหนัก</div>
+<div class="note ok">✅ ไม่พึ่งเซิร์ฟเวอร์ภายนอกเลย → เว็บเร็วขึ้น (ลด 1 การเรียกข้ามโดเมน) และไม่มีวันพังเพราะบริการฟอนต์ล่ม/ถูกบล็อค</div>
+<div class="note ok">✅ ไฟล์เล็ก: ฟอนต์ไทย subset รวม ~20 KB สำหรับ 2 น้ำหนัก</div>
+
+<h2>5. บทเรียนของจริง 🛠️</h2>
+<table>
+<tr><th>ปัญหา</th><th>สาเหตุ</th><th>วิธีแก้</th></tr>
+<tr><td>ไทยเป็นกล่องทั้งหน้า</td><td>อ้างฟอนต์ใน CSS แต่ไม่ได้โหลดเข้ามา</td><td>ต้องมี @font-face หรือ @import ที่ชี้แหล่งฟอนต์จริง</td></tr>
+<tr><td>@import แล้วแต่ยังเพี้ยน</td><td>เครือข่ายบล็อคบริการฟอนต์นอก — ล้มเหลวแบบเงียบ</td><td>ตรวจ <code>document.fonts.size</code> ในบราวเซอร์จริง ไม่ใช่แค่โค้ด</td></tr>
+<tr><td>ตรวจ <code>fonts.check()</code> ผ่านแต่ฟอนต์ไม่มา</td><td>check() นับฟอนต์ fallback ด้วย</td><td>ใช้ <code>fonts.load()</code> แล้วดูจำนวน/สถานะแทน</td></tr>
+<tr><td>ดึงไฟล์จากบริการฟอนต์ได้แต่ใหญ่ผิดปกติ</td><td>ไม่ได้ส่ง User-Agent ของเบราว์เซอร์</td><td>ใส่ UA เป็น Chrome จริง จะได้ subset woff2 ตัวเล็ก</td></tr>
+<tr><td>อยากได้ความเสถียรระยะยาว</td><td>พึ่ง CDN ภายนอก = พังได้เมื่อไหร่ก็ได้</td><td>ฝังไฟล์ฟอนต์ในเว็บเอง (วิธีในไกด์นี้)</td></tr>
+</table>
+
+<h2>6. ส่วนไหนคนทำ / ส่วนไหน AI ทำ 🧩</h2>
+<table>
+<tr><th>ขั้น</th><th>งาน</th><th>ใครทำ</th><th>เวลาโดยประมาณ</th></tr>
+<tr><td>1</td><td>เปิดเว็บแล้วเห็นว่าไทยเพี้ยน แจ้งปัญหา</td><td>👤 คน</td><td>1 นาที</td></tr>
+<tr><td>2</td><td>วินิจฉัย 3 ชั้น (CSS → network → ฟอนต์ระบบ)</td><td>🤖 AI</td><td>~5 นาที</td></tr>
+<tr><td>3</td><td>ดึง subset ฟอนต์ไทย + ฝัง @font-face</td><td>🤖 AI</td><td>~5 นาที</td></tr>
+<tr><td>4</td><td>publish + ตรวจด้วย document.fonts</td><td>🤖 AI</td><td>~3 นาที</td></tr>
+<tr><td>5</td><td>ดูหน้าเว็บ ยืนยันว่าอ่านได้</td><td>👤 คน</td><td>1 นาที</td></tr>
+</table>
+
+<footer>
+  📖 ส่วนหนึ่งของ <a href="../index.html">AnonyMous Shelf</a> · เขียนจากงานแก้จริงบนเว็บที่เผยแพร่แล้ว · อัปเดต 26 ส.ค. 2026
+</footer>
+</div>
+</body>
+</html>
