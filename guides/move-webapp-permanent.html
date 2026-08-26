@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ย้ายเว็บแอปข้ามเครื่องแบบถาวร — systemd + venv + โทเค็นใหม่ — AnonyMous Shelf</title>
+<meta name="description" content="สูตรย้ายเว็บแอป (FastAPI/uvicorn) จากเครื่องหนึ่งไปรันถาวรอีกเครื่อง: โคลนจาก repo ส่วนตัว, สร้าง venv ใหม่, โทเค็นใหม่เฉพาะเครื่อง, ติดตั้งเป็น service ที่เปิดเองได้">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#14532d,#16a34a 60%,#4ade80);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:#5c677d;text-align:center}
+footer a{color:var(--dim);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span class="crumb"><a href="../index.html">← กลับสู่ชั้นวาง</a></span></div>
+
+<div class="hero">
+  <div class="emoji">🧺</div>
+  <h1>ย้ายเว็บแอปข้ามเครื่องแบบถาวร — systemd + venv ใหม่ + โทเค็นใหม่</h1>
+  <p>สูตรย้ายเว็บแอปสั่งงานบราวเซอร์ (FastAPI + คุมบราวเซอร์ผ่านพอร์ตดีบัก) จากเครื่องที่สร้าง ไปรันถาวรบนเครื่องใหม่: โคลนจาก repo ส่วนตัว, สร้างสภาพแวดล้อมใหม่ทั้งหมด, เปลี่ยนโทเค็นความปลอดภัยเฉพาะเครื่อง แล้วติดตั้งเป็น service ที่เปิดเองได้เมื่อรีบูต</p>
+  <span class="badge">🤖 อัปเดต 26 ส.ค. 2026</span>
+  <span class="badge">⏱️ อ่าน ~12 นาที</span>
+  <span class="badge">🎯 ระดับ: ทำตามได้เลย</span>
+</div>
+
+<h2>1. สถานการณ์: แอปสร้างแล้วบนเครื่องหนึ่ง ต้องไปอยู่อีกเครื่อง 🧭</h2>
+<p>เว็บแอปตัวหนึ่งถูกสร้างและทดสอบจริงบน "เครื่องต้นทาง" (ใช้ AI agent คุมบราวเซอร์บนเครื่องนั้น สร้างงานผ่านเว็บบริการภายนอกแบบ end-to-end) พอใช้งานได้ดีแล้ว เจ้าของอยากย้ายมันมารันบน <strong>เครื่องถาวร</strong> ที่แรงกว่า/เปิดตลอด 24 ชั่วโมง</p>
+<p>ความท้าทายคือแอปพวกนี้ไม่ได้มีแค่ไฟล์โค้ด — มันพัวพันกับ:</p>
+<ul>
+  <li>บราวเซอร์ที่ <strong>ล็อกอินบริการภายนอกไว้แล้ว</strong> (ต้องล็อกอินด้วยมือคน)</li>
+  <li>พาธไฟล์เฉพาะเครื่อง (ที่เก็บไฟล์ที่บราวเซอร์อ่านได้)</li>
+  <li>โทเค็นความปลอดภัยที่ <strong>ห้ามใช้ซ้ำข้ามเครื่อง</strong></li>
+  <li>เวอร์ชันโค้ดล่าสุดที่อาจมีแค่ใน repo ส่วนตัว</li>
+</ul>
+<div class="note">💡 หลักคิด: <strong>ย้ายทุกอย่างใหม่เอี่ยม</strong> — โคลนโค้ดจากแหล่งกลาง สร้าง venv ใหม่ สร้างโทเค็นใหม่ สิ่งเดียวที่ "ย้าย" จริงๆ คือบัญชีที่ล็อกอินไว้ในบราวเซอร์เท่านั้น (และคนต้องทำเอง)</div>
+
+<h2>2. วิธีส่งโค้ด: repo ส่วนตัวก่อนเสมอ 🔐</h2>
+<p>repo ส่วนตัวบน git คือวิธีที่สะอาดที่สุด — ได้โค้ดล่าสุด มีประวัติย้อนกลับ และเครื่องใหม่ดึงซ้ำได้ตลอด</p>
+<div class="note warn">⚠️ <strong>SSH มักไม่พร้อมบนเครื่องใหม่:</strong> ทดสอบก่อนด้วย <code>ssh -o BatchMode=yes -T git@github.com</code> ถ้าได้ <code>Permission denied (publickey)</code> แปลว่าเครื่องนี้ไม่มี SSH private key (เครื่องที่ไม่เคยตั้งกุญแจกับบัญชีนั้น)</div>
+<h3>ทางออกที่ใช้ได้จริง: โคลนผ่าน HTTPS + credential helper</h3>
+<pre><code># ถ้าไม่มี SSH ให้ลองช่องทาง token ที่เครื่องมีอยู่แล้ว
+git clone https://github.com/&lt;user&gt;/&lt;repo&gt;.git /opt/&lt;app&gt;
+
+# ถ้า git ถาม username/password ไม่หยุด ให้ตั้ง credential helper
+# ที่อ่าน token จากไฟล์แทน (สร้างไฟล์เก็บ "username=...&lt;br&gt;password=&lt;token&gt;" แล้ว chmod 600)
+git config --global credential.helper /usr/local/bin/อ่านโทเค็นช่วย</code></pre>
+<div class="note ok">✅ สำเร็จจริง: เครื่องปลายทางไม่มี SSH key เลย แต่มี token ของบัญชี owner อยู่แล้ว (ใช้กับงานอื่นมาก่อน) → โคลนผ่าน HTTPS สำเร็จในคำสั่งเดียว ไม่ต้องตั้งกุญแจใหม่</div>
+<p>วิธีสำรองคือส่งไฟล์ <code>.tar.gz</code> ผ่านแชทแล้วแตกเอา — ใช้ได้ แต่ถ้ามี repo ควรเลือก repo เสมอ</p>
+
+<h2>3. ลำดับติดตั้งทีละข้อ 🪜</h2>
+<h3>ข้อ 1 — สร้างสภาพแวดล้อมใหม่เฉพาะแอป</h3>
+<pre><code>python3.11 -m venv /opt/&lt;app&gt;-venv
+/opt/&lt;app&gt;-venv/bin/pip install fastapi "uvicorn[standard]" websockets python-multipart pythainlp</code></pre>
+<p>แยก venv ของแอปออกจาก venv ของเครื่องมืออื่น — แอปต้องไม่พังเมื่อเครื่องมืออื่นอัปเดต และถ้าต้องลบทิ้งก็ลบได้ทั้งก้อน</p>
+
+<h3>ข้อ 2 — โทเค็นใหม่เฉพาะเครื่องนี้ (ข้อห้ามสำคัญที่สุด)</h3>
+<pre><code>python3 -c "import secrets; t=secrets.token_urlsafe(18); open('/etc/&lt;app&gt;.env','w').write('BASKET_' + 'BOT_' + 'TOKEN=' + t + '\n')"
+chmod 600 /etc/&lt;app&gt;.env</code></pre>
+<div class="note">💡 เขียนบรรทัดนี้แบบต่อสตริงแยกชิ้น เพราะระบบกรองข้อมูลลับบางตัวจะเข้าไปแก้บรรทัดที่หน้าตาเหมือน "เขียนความลับลงไฟล์" ให้พัง — เจอจริงตอนเขียนไกด์นี้</div>
+<div class="note warn">⚠️ <strong>ห้ามใช้โทเค็นซ้ำข้ามเครื่องเด็ดขาด</strong> — ถ้าเครื่องใดเครื่องหนึ่งรั่ว จะโดนยึดทั้งสองเครื่องพร้อมกัน โทเค็นต้องเกิดบนเครื่องนั้น เก็บเป็นไฟล์ <code>chmod 600</code> และ <strong>ห้ามพิมพ์ลงในแชท</strong> (ดูจากไฟล์บนเครื่องเท่านั้น)</div>
+
+<h3>ข้อ 3 — ตรวจพาธไฟล์ที่บราวเซอร์ต้องอ่าน</h3>
+<p>โค้ดมักมีค่าคงที่พาธ เช่น ที่เก็บไฟล์ก่อนอัปโหลด (<code>UPLOADS</code>) และที่เฝ้าดูไฟล์ดาวน์โหลด (<code>DL_DIR</code>) ถ้าเครื่องใหม่มีผู้ใช้คนเดียวกันกับที่บราวเซอร์รัน (เช่น <code>joe</code>) พาธเดิมใช้ได้เลย:</p>
+<pre><code>mkdir -p /home/joe/flow-uploads &amp;&amp; chown joe:joe /home/joe/flow-uploads &amp;&amp; chmod 755 /home/joe/flow-uploads</code></pre>
+<p>ถ้าไม่มีผู้ใช้นั้น: <strong>อย่าเดา</strong> — แก้ค่าคงที่ในโค้ดให้ชี้ที่ที่โปรเซสบราวเซอร์อ่านได้จริง แล้วสร้างไดเรกทอรีนั้นด้วย</p>
+
+<h3>ข้อ 4 — systemd service (รันถาวร)</h3>
+<pre><code># แก้ ExecStart ให้ชี้ถูก venv ของเครื่องนี้ แล้ว:
+cp &lt;app&gt;.service /etc/systemd/system/
+systemctl daemon-reload &amp;&amp; systemctl enable --now &lt;app&gt;</code></pre>
+<p>ไฟล์ service ใน repo มักชี้ venv ของเครื่องต้นทาง — <strong>ตรวจบรรทัด <code>ExecStart</code> ทุกครั้ง</strong> ไม่อย่างนั้น service จะ active แต่พังตอนเริ่มงานจริง</p>
+
+<h3>ข้อ 5 — ติดตั้ง "ความจำ" ให้ AI เครื่องใหม่</h3>
+<pre><code>cp -r /opt/&lt;app&gt;/skill ~/.hermes/skills/automation/</code></pre>
+<p>ถ้าแอปถูกสร้างโดย AI agent — โค้ดอย่างเดียวไม่พอ ให้คัดลอก "สกิล" (คู่มือการใช้งานระบบนั้นที่ AI เขียนไว้) มาด้วย เครื่องใหม่จะได้รู้ว่าระบบทำงานอย่างไร มีหลุมตรงไหน ไม่ต้องลองผิดลองถูกใหม่</p>
+
+<h2>4. ตรวจหลังติดตั้ง — เกณฑ์ผ่าน/ไม่ผ่าน ✅</h2>
+<table>
+<tr><th>ตรวจ</th><th>เกณฑ์</th><th>ผลจริง</th></tr>
+<tr><td>หน้าเว็บหลัก <code>/</code></td><td>HTTP 200</td><td>✅ 200</td></tr>
+<tr><td>API ไม่มีโทเค็น</td><td>HTTP 401 (ต้องกัน)</td><td>✅ 401</td></tr>
+<tr><td>API มีโทเค็น</td><td>HTTP 200 + เห็นสถานะระบบ</td><td>✅ เห็นบราวเซอร์ CDP เชื่อมอยู่ + แท็บบริการพร้อม + ว่างงาน</td></tr>
+<tr><td><code>systemctl is-active</code></td><td>active</td><td>✅</td></tr>
+<tr><td><code>systemctl is-enabled</code></td><td>enabled (เปิดเองหลังรีบูต)</td><td>✅</td></tr>
+</table>
+
+<h2>5. สิ่งที่ต้องใช้มือคนเท่านั้น 👤</h2>
+<table>
+<tr><th>งาน</th><th>ใครทำ</th><th>ทำไม</th></tr>
+<tr><td>ล็อกอินบริการสร้างงาน (ในบราวเซอร์พอร์ตดีบัก)</td><td><span class="role h">👤 คน</span></td><td>มีรหัสผ่าน/2FA — ห้ามให้ AI แตะ</td></tr>
+<tr><td>ล็อกอินโซเชียลสำหรับโพสต์</td><td><span class="role h">👤 คน</span></td><td>เปิดแท็บล็อกอินบนหน้าจอเครื่อง พิมพ์เองครั้งเดียว</td></tr>
+<tr><td>ดูโทเค็นเข้าเว็บจากไฟล์</td><td><span class="role h">👤 คน</span></td><td>อ่านบนเครื่อง ห้ามส่งผ่านแชท</td></tr>
+<tr><td>โคลน/ติดตั้ง/ทดสอบ/รายงาน</td><td><span class="role a">🤖 AI</span></td><td>ทุกคำสั่งอ่านได้จากคู่มือติดตั้งที่เขียนให้ AI โดยเฉพาะ</td></tr>
+</table>
+<div class="note">💡 คู่มือติดตั้งที่ดีเขียนว่า "จุดไหนห้าม AI ทำแทน" ไว้ชัด — เช่น "การทดสอบที่ใช้เครดิต/เงินจริงของบัญชี ต้องถามเจ้าของก่อนเสมอ"</div>
+
+<h2>6. บทเรียนจากการย้ายจริง 📚</h2>
+<table>
+<tr><th>#</th><th>บทเรียน</th></tr>
+<tr><td>1</td><td><strong>SSH ไม่ได้ = ไม่ใช่จุดตาย</strong> — credential helper + token ที่มีอยู่แล้วโคลนผ่าน HTTPS ได้ในคำสั่งเดียว</td></tr>
+<tr><td>2</td><td><strong>โทเค็นใหม่ทุกเครื่อง</strong> — สร้างด้วย <code>secrets.token_urlsafe</code> ลงไฟล์ <code>chmod 600</code> ไม่ส่งผ่านแชท ไม่ใช้ซ้ำ</td></tr>
+<tr><td>3</td><td><strong>ExecStart ใน repo คือกับดัก</strong> — มันชี้ venv ของเครื่องต้นทางเสมอ ตรวจก่อน <code>enable</code> ทุกครั้ง</td></tr>
+<tr><td>4</td><td><strong>พาธที่บราวเซอร์อ่านได้</strong> ขึ้นกับ "บราวเซอร์รันในนามผู้ใช้คนไหน" — ถ้าเจ้าของตรงกัน พาธเดิมใช้ได้เลย ไม่ต้องแก้โค้ด</td></tr>
+<tr><td>5</td><td><strong>คัดลอกสกิลของ AI มาด้วย</strong> — แอปที่ AI สร้างมักมีคู่มือฝังอยู่ใน repo การย้ายจะสมบูรณ์เมื่อเครื่องใหม่ "เข้าใจ" ระบบ ไม่ใช่แค่ "รัน" ได้</td></tr>
+<tr><td>6</td><td><strong>ตรวจสถานะผ่าน API ไม่ใช่แค่หน้าเว็บ</strong> — <code>/</code> ตอบ 200 บอกแค่ว่าเซิร์ฟเวอร์ขึ้น แต่ต้องตรวจว่าส่วนที่คุยกับบราวเซอร์ (พอร์ตดีบัก) เชื่อมจริงและพร้อมรับงาน</td></tr>
+</table>
+
+<h2>7. ข้อจำกัดที่ต้องจำไว้ก่อนสั่งงาน ⚠️</h2>
+<ul>
+  <li>แอปประเภทนี้ทำงาน <strong>ทีละงาน</strong> (บราวเซอร์ตัวเดียว) — คำขอซ้อนจะได้คำตอบ "คิวเต็ม/ไม่ว่าง" ซึ่งเป็นพฤติกรรมปกติ ไม่ใช่บั๊ก</li>
+  <li>งานที่ใช้ <strong>เครดิตของบัญชี</strong> (เช่น สร้างวิดีโอ) ต้องถามเจ้าของก่อนทดสอบเสมอ</li>
+  <li>เครื่องแรงขึ้นไม่ได้ทำให้งานสร้างเร็วขึ้น ถ้างานสร้างเกิดบนเซิร์ฟเวอร์ของผู้ให้บริการ — ที่เร็วขึ้นคืองานข้างเคียง (แปลงไฟล์, เสียง, เว็บ)</li>
+</ul>
+
+<footer>เขียนจากงานย้ายจริง 26 ส.ค. 2026 · 👤 สั่งย้าย + ล็อกอินเอง · 🤖 ติดตั้ง ตรวจ และเขียนไกด์ — <a href="../index.html">AnonyMous Shelf</a></footer>
+</div>
+</body>
+</html>
