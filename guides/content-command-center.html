@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ศูนย์บัญชาการคอนเทนต์: สร้างวิดีโอ + โพสต์ + คิว + ตั้งเวลา จบในระบบเดียว — AnonyMous Shelf</title>
+<meta name="description" content="บทเรียนจากการสร้างระบบอัตโนมัติครบวงจร: เลือกสไตล์คลิป → เจนบทเอง → สร้างวิดีโอ → โพสต์ลงโซเชียล → ตั้งเวลาโพสต์ พร้อมเช็กลิสต์ความปลอดภัยก่อนเปิดระบบออกอินเทอร์เน็ต">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght=400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#161c29;--line:#232c40;--txt:#e8ecf4;--dim:#8b96ad;--gold:#f0b429;--gold2:#ffd166;--teal:#2dd4bf;--red:#f87171;--green:#4ade80;--blue:#60a5fa;--purple:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.top{padding:48px 0 8px}
+.crumb{font-size:13px;color:var(--dim)}
+.crumb a{color:var(--gold);text-decoration:none}
+.hero{margin:26px 0 8px;background:linear-gradient(135deg,#4c1d95,#7c3aed 60%,#a78bfa);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden}
+.hero .emoji{font-size:44px}
+.hero h1{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.4;margin-top:10px}
+.hero p{margin-top:10px;font-size:14.5px;opacity:.92;max-width:640px}
+.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:99px;padding:4px 14px;font-size:12px;margin:14px 8px 0 0;font-weight:600}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 10px;color:var(--gold2)}
+p{color:#cdd5e4;font-size:14.5px;font-weight:300;margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px;color:#cdd5e4;font-size:14.5px;font-weight:300}
+li{margin-bottom:7px}
+strong{color:var(--txt);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:13.5px}
+th{background:#1b2233;text-align:left;padding:10px 12px;border:1px solid var(--line);font-weight:600;color:var(--gold2)}
+td{padding:9px 12px;border:1px solid var(--line);color:#cdd5e4;font-weight:300;vertical-align:top}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#1b2233;color:var(--teal);padding:2px 7px;border-radius:6px}
+pre{background:#0e1220;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:12px 0 18px}
+pre code{background:none;padding:0;color:#a5f3fc;font-size:12.5px;line-height:1.7}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.07);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;font-size:13.5px;color:#e2d9c0}
+.note.warn{border-color:var(--red);background:rgba(248,113,113,.07);color:#e8c8c8}
+.note.ok{border-color:var(--green);background:rgba(74,222,128,.06);color:#c9e8cf}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-right:6px}
+.role.h{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.35)}
+.role.a{background:rgba(74,222,128,.13);color:var(--green);border:1px solid rgba(74,222,128,.35)}
+footer{margin-top:56px;padding:26px 0;border-top:1px solid var(--line);text-align:center;color:var(--dim);font-size:12.5px}
+footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="crumb"><a href="../index.html">📚 กลับหน้าชั้นวาง</a></div>
+  </div>
+  <div class="hero">
+    <div class="emoji">🧺</div>
+    <h1>ศูนย์บัญชาการคอนเทนต์: สร้างวิดีโอ + โพสต์ + คิว + ตั้งเวลา จบในระบบเดียว</h1>
+    <p>บทเรียนจากการพัฒนาระบบอัตโนมัติ 5 เวอร์ชันใน 1 วัน: จาก "กดสร้างคลิปทีละตัว" สู่ "สั่งงานทั้งชุดแล้วระบบจัดการเองจนโพสต์ลงโซเชียล"</p>
+    <span class="badge">🤖 AI + Browser Automation</span>
+    <span class="badge">🎬 สร้างวิดีโอ</span>
+    <span class="badge">📲 โพสต์อัตโนมัติ</span>
+    <span class="badge">⏰ ตั้งเวลา</span>
+  </div>
+
+  <h2>🎯 แนวคิด: "ไอเดียเดียว → คอนเทนต์พร้อมโพสต์"</h2>
+  <p>ระบบคอนเทนต์อัตโนมัติที่ดีไม่ใช่แค่ "สร้างวิดีโอได้" แต่ต้องครอบคลุมทั้งสายงาน ตั้งแต่คิดบทจนถึงโพสต์ลงจริง เราพัฒนาต่อยอดระบบสร้างวิดีโอเดิม (อ่านได้ในไกด์ <a href="ugc-video-google-flow.html" style="color:var(--gold)">ทำวิดีโอ UGC ด้วย Google Flow</a>) จนครบวงจร:</p>
+  <table>
+    <tr><th>ขั้น</th><th>เดิม (ทำมือ)</th><th>ใหม่ (ระบบจัดการ)</th></tr>
+    <tr><td>คิดบทพูด</td><td>นั่งเขียนเองทุกคลิป</td><td><strong>เจนบทอัตโนมัติ</strong>จากข้อมูลสินค้า + เลือกสไตล์</td></tr>
+    <tr><td>สร้างวิดีโอ</td><td>สั่งทีละตัว รอทีละตัว</td><td><strong>แถวคิว</strong> สั่งหลายงานเรียงกัน รันทีละตัวอัตโนมัติ</td></tr>
+    <tr><td>เขียนแคปชัน</td><td>คิดใหม่ทุกโพสต์</td><td><strong>ชุดโพสต์สำเร็จ</strong>: แคปชัน + แฮชแท็ก + ลิงก์สินค้า</td></tr>
+    <tr><td>โพสต์</td><td>เปิดแอป อัปโหลด พิมพ์เอง</td><td><strong>ปุ่มเดียวโพสต์</strong>ให้ทั้งคลิปและแคปชัน</td></tr>
+    <tr><td>จังหวะเวลา</td><td>ต้องอยู่หน้าจอตลอด</td><td><strong>ตั้งเวลาล่วงหน้า</strong> โพสต์ช่วงคนดูเยอะแม้อยู่ข้างนอก</td></tr>
+  </table>
+
+  <h2>🧩 ชิ้นส่วนที่ 1: โหมดสไตล์คอนเทนต์</h2>
+  <p>สินค้าตัวเดียวกันเล่าได้หลายแบบ เราแยก "สไตล์การเล่า" เป็นโหมดที่เลือกได้โหมดเดียวเปลี่ยนทั้งโทนคลิปและชุดแฮชแท็ก:</p>
+  <table>
+    <tr><th>โหมด</th><th>เหมาะกับ</th><th>โทน</th></tr>
+    <tr><td>🛒 คลิปขายของ</td><td>รีวิวตรงๆ โชว์สินค้า</td><td>กระตือรือร้น เป็นธรรมชาติ</td></tr>
+    <tr><td>🧺 ปักตะกร้า/นายหน้า</td><td>แนะนำเหมือนเพื่อนบอกต่อ</td><td>กันเอง ตื่นเต้นเล็กน้อย</td></tr>
+    <tr><td>📖 เล่าเรื่อง</td><td>รีวิวจากประสบการณ์จริง</td><td>อบอุ่น น่าเชื่อถือ</td></tr>
+    <tr><td>🔥 โปรโมชั่น</td><td>โปรแรง จำกัดเวลา</td><td>เร่งด่วน พลังสูง</td></tr>
+  </table>
+  <p>แต่ละโหมดคือ <strong>ชุดข้อมูล</strong> ที่กำหนด 2 อย่าง: (1) วลีสไตล์ที่ฝังในพรอมต์สร้างวิดีโอ (2) ชุดแฮชแท็กที่ใช้ตอนโพสต์ — เพิ่มโหมดใหม่คือการเพิ่มข้อมูลชุดเดียว ไม่ต้องแก้โค้ดส่วนอื่น</p>
+
+  <h2>🧩 ชิ้นส่วนที่ 2: เจนบทอัตโนมัติแบบไม่พึ่ง LLM</h2>
+  <p>บทพูดสั้นๆ 8 วินาที (15-20 คำ) ไม่จำเป็นต้องใช้โมเดลภาษาใหญ่ เราใช้ <strong>เทมเพลตสุ่ม</strong>: เปิดเรื่อง → จุดเด่น → ปิดท้าย แต่ละส่วนมีหลายแบบสุ่มเลือก แล้วประกอบจาก "ชื่อสินค้า + จุดเด่น" ที่กรอกไว้:</p>
+  <div class="note">💡 <strong>เคล็ดลับ:</strong> แยกจุดเด่นเป็น 2 กลุ่ม — <strong>ภาษาอังกฤษ</strong> (สี/ทรง เช่น "olive green wide-leg") ใส่ในพรอมต์ภาพเพื่อให้ AI สร้างสินค้าตรงสี ส่วน <strong>ภาษาไทย</strong> (เช่น "ใส่สบาย ระบายอากาศดี") เท่านั้นที่เข้าบทพูด ไม่งั้นประโยคไทยจะมีคำอังกฤษปนจนฟังเพี้ยน</div>
+  <ul>
+    <li><strong>ตัดความยาวอย่างฉลาด</strong>: ถ้าบทเกิน 210 ตัวอักษร (พูดไม่ทันใน 8 วิ) ให้ "ตัดประโยคกลางออก" ไม่ใช่ตัดครึ่งคำ</li>
+    <li><strong>คำอ่านโรมันช่วยได้จริง</strong>: สร้างเสียงไทยจากโมเดลที่ไม่ได้ฝึกภาษาไทยโดยเฉพาะ การแนบคำอ่านประกอบทำให้สำเนียงชัดขึ้นมาก (ระวัง: ตัวแปลงบางตัวอักษรไทยหลุดปนมา ต้องกรองออก)</li>
+    <li><strong>อย่าแยกจุดเด่นด้วยเครื่องหมาย <code>-</code></strong> เพราะตัดคำเชื่อม เช่น "wide-leg" จะกลายเป็น "wide" กับ "leg" ใช้ <code>, ; ·</code> หรือขึ้นบรรทัดใหม่แทน</li>
+  </ul>
+
+  <h2>🧩 ชิ้นส่วนที่ 3: โพสต์ลงโซเชียลด้วยเบราว์เซอร์ตัวเดิม</h2>
+  <p>ระบบสร้างวิดีโอใช้วิธี "ยืมจอจริง" (ล็อกอินเองหนึ่งครั้ง แล้ว AI คุมผ่านโปรโตคอล CDP) โพสต์ก็ใช้สูตรเดียวกัน:</p>
+  <ol>
+    <li><strong>คนล็อกอินเองครั้งเดียว</strong>ผ่านหน้าจอเครื่อง — ระบบไม่เก็บรหัสผ่านเด็ดขาด</li>
+    <li>AI เปิดหน้าอัปโหลด → ฉีดไฟล์วิดีโอเข้า <code>input[type=file]</code> ที่ซ่อนอยู่ (สูตรเดียวกับไกด์ <a href="web-file-upload-hack.html" style="color:var(--gold)">หลอกให้เว็บรับไฟล์</a>)</li>
+    <li>รอช่องแคปชันพร้อม → พิมพ์แคปชันให้ → กดปุ่มโพสต์</li>
+    <li>ตรวจผลลัพธ์: สำเร็จ / เตรียมดราฟต์ไว้ให้ตรวจ / กดแล้วแต่ยืนยันไม่ได้ (ให้คนเช็กในแอป)</li>
+  </ol>
+  <div class="note warn">⚠️ <strong>โหมดดราฟต์สำคัญมาก:</strong> ก่อนปล่อยให้โพสต์จริงทุกครั้ง ควรทดสอบแบบ "เตรียมทุกอย่างให้พร้อมแต่ไม่กดโพสต์" ก่อน — เว็บแต่ละเจ้าเปลี่ยนหน้าตาบ่อย เซเลกเตอร์เดิมอาจหาปุ่มไม่เจอ โหมดดราฟต์ทำให้รู้ตัวก่อนพลาดโพสต์จริง</div>
+
+  <h2>🧩 ชิ้นส่วนที่ 4: แถวคิว + ตั้งเวลา</h2>
+  <p>ข้อจำกัดของระบบที่ใช้เบราว์เซอร์ตัวเดียวคือ <strong>ทำได้ทีละงาน</strong> แต่ไม่ต้องให้คนนั่งรอ — ใช้แถวคิว:</p>
+  <ul>
+    <li><strong>คิวงาน</strong>: รับงานใหม่ได้ตลอดแม้มีงานรันอยู่ เธรดตัวเดียววนตรวจทุก 3 วินาที ปล่อยงานถัดไปเมื่อเครื่องว่าง สูงสุด 10 งานรอคิว</li>
+    <li><strong>สถานะรอดรีสตาร์ท</strong>: คิวเก็บลงไฟล์ งานที่ "กำลังรัน" ตอนเครื่องดับถูกตีตราว่าล้มเหลวให้กดใหม่ (ไม่ปล่อยผี)</li>
+    <li><strong>ตั้งเวลาโพสต์</strong>: เลือกว่าจะโพสต์กี่โมง ระบบเข้าคิวให้อัตโนมัติเมื่อถึงเวลา — แนะนำช่วงคนดูเยอะ: <strong>07:00 / 12:00 / 19:00</strong></li>
+    <li><strong>กันชน</strong>: คิวต้องตรวจทั้ง "งานสร้าง" และ "งานโพสต์" ว่าว่างจริงก่อนปล่อยงานถัดไป ไม่งั้นสองงานจะแย่งเมาส์/คีย์บอร์ดกัน</li>
+  </ul>
+
+  <h2>🔐 เช็กลิสต์ความปลอดภัยก่อนเปิดระบบออกอินเทอร์เน็ต</h2>
+  <p>ระบบนี้เปิดให้เข้าถึงจากนอกบ้านผ่านอุโมงค์ (Cloudflare Tunnel) สิ่งที่ต้องทำก่อนเปิด:</p>
+  <ul>
+    <li>✅ <strong>ล็อกอินก่อนเข้า</strong>: ใช้คุกกี้เซสชัน (HttpOnly) ไม่เก็บโทเค็นใน JavaScript ของเบราว์เซอร์ + จำกัดความถี่การล็อกอินผิด</li>
+    <li>✅ <strong>ล็อกไฟล์มีเดียด้วย</strong>: วิดีโอและรูปสินค้าต้องผ่านด่านล็อกอินเหมือนกัน (ข้อพลาดยอดฮิต: ล็อกเฉพาะ API แต่ลืมล็อกไฟล์ตรง)</li>
+    <li>✅ <strong>ห้ามฝังโทเค็นในโค้ด</strong>: ค่าลับอยู่ในไฟล์ตั้งค่าที่จำกัดสิทธิ์เท่านั้น ถ้าไม่มีค่าให้ระบบปฏิเสธการทำงานไปเลย</li>
+    <li>✅ <strong>ก่อนขึ้น GitHub</strong>: สแกนค่าลับในโค้ดทุกครั้ง + กันไฟล์ข้อมูล (ประวัติผู้ใช้, เซสชัน, ไฟล์วิดีโอ) เข้า repo ด้วย .gitignore</li>
+    <li>✅ <strong>กันเส้นทางย้อน</strong>: ชื่อไฟล์ที่รับจากผู้ใช้ต้องห้ามมี <code>..</code> หรือ <code>/</code> ไม่งั้นอ่านไฟล์นอกระบบได้</li>
+  </ul>
+
+  <h2>📋 สรุป: ลำดับการพัฒนาระบบ 5 เวอร์ชัน</h2>
+  <table>
+    <tr><th>เวอร์ชัน</th><th>สิ่งที่เพิ่ม</th><th>บทเรียนสำคัญ</th></tr>
+    <tr><td>v1.0</td><td>สร้างวิดีโอจากบท + รูปสินค้า</td><td>ต้องบอกสี/ทรงสินค้าในพรอมต์ ไม่งั้น AI เดาเอง (เคยได้กางเกงผิดสี)</td></tr>
+    <tr><td>v1.1</td><td>หลายฉากต่อคลิปเดียว</td><td>ประวัติงานต้องอัปเดตตอน "จบ" ไม่ใช่แค่ตอน "เริ่ม"</td></tr>
+    <tr><td>v1.2</td><td>ล็อกอิน + กันไฟล์มีเดีย</td><td>ล็อกไฟล์ตรงสำคัญเท่าล็อก API</td></tr>
+    <tr><td>v1.3</td><td>4 โหมด + เจนบท + ชุดโพสต์</td><td>เจนบทแบบเทมเพลตพอสำหรับงานสั้น ไม่ต้องใช้ LLM</td></tr>
+    <tr><td>v1.4</td><td>โพสต์โซเชียลอัตโนมัติ</td><td>ต้องมีโหมดดราฟต์ก่อนโพสต์จริงเสมอ</td></tr>
+    <tr><td>v1.5</td><td>แถวคิว + ตั้งเวลา</td><td>คิวรอดรีสตาร์ท + กันชนต้องตรวจงานทุกประเภท</td></tr>
+  </table>
+
+  <div class="note ok">✅ <strong>หลักการที่ได้ทั้งชุด:</strong> (1) คนทำขั้นตอนที่ต้องใช้ "ตัวตน" ครั้งเดียว (ล็อกอิน) ที่เหลือ AI ทำซ้ำให้ (2) ทุกการกระทำที่ย้อนกลับไม่ได้ (โพสต์จริง ใช้จ่ายเครดิต) ต้องมีการยืนยัน + โหมดทดสอบก่อนเสมอ (3) ความลับไม่อยู่ในโค้ด ไม่อยู่ในเบราว์เซอร์ และไม่อยู่ใน repo สาธารณะ</div>
+
+  <footer>
+    เขียนจากงานจริง 26 ส.ค. 2026 · มนุษย์ + Hermes Agent 🤖 · <a href="../index.html">กลับหน้าชั้นวาง 📚</a>
+  </footer>
+</div>
+</body>
+</html>
